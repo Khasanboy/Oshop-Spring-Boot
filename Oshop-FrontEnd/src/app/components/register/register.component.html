@@ -1,0 +1,44 @@
+<div class="col-md-6 offset-md-3" style="padding:50px">
+    <h2>Sign Up</h2>
+    <br>
+    <form (submit)="register()" #form="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="name" id="name" minlength="2" maxlength="40" required #nameField = "ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="nameField.touched && !nameField.valid">
+        <div *ngIf="nameField.errors.required">Name is required</div>
+        <div *ngIf="nameField.errors.minlength">Minimum length for the field is {{nameField.errors.minlength.requiredLength}}</div>
+      </div>
+      <div class="form-group">
+        <label for="surname">Surname</label>
+        <input type="text" class="form-control" name="surname" [(ngModel)]="surname" id="surname" minlength="2" maxlength="40" required #surnameField="ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="surnameField.touched && !surnameField.valid">
+        <div *ngIf="surnameField.errors.required">Surname is required</div>
+        <div *ngIf="surnameField.errors.minlength">Minimum length for the field is {{surnameField.errors.minlength.requiredLength}}</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" (change)="log()" class="form-control" name="email" [(ngModel)]="email" id="email" #emailField="ngModel" [email]="true" required>
+      </div>
+      <div class="alert alert-danger" *ngIf="emailField.touched && !emailField.valid">
+        <div *ngIf="emailField.errors.required">Email is required</div>
+        <div *ngIf="!validateEmail(emailField.value) && !emailField.errors.required">Not valid email address</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="password" id="password" minlength="4" maxlength="20" required #passwordField = "ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="passwordField.touched && !passwordField.valid">
+          <div *ngIf="passwordField.errors.required">Surname is required</div>
+          <div *ngIf="passwordField.errors.minlength">Minimum length for the field is {{passwordField.errors.minlength.requiredLength}}</div>
+        </div>
+      <button class="btn btn-primary btn-block" type="submit" [disabled]="!form.valid">Sign up</button>
+    </form>
+    <br>
+    <p>Already registered?
+      <a style="text-decoration: none" [routerLink]="['/login']">Login now!</a>
+    </p>
+  
+  </div>
