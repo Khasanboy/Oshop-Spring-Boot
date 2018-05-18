@@ -1,4 +1,7 @@
+import { User } from './../../models/user';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -6,15 +9,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
-  constructor() { }
+
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  validateEmail(email){
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+  register() {
+    const user = new User(this.name, this.surname, this.email, this.password);
+
+    this.authService.register(user).subscribe(
+      data => {
+         console.log(data)
+         this.router.navigate(["/login"]);
+        },
+
+      error => {
+        console.log(error);
+      }
+    )
+
   }
 
 }

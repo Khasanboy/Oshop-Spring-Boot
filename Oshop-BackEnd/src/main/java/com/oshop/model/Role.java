@@ -23,6 +23,11 @@ public class Role {
 	@NaturalId
 	@Column(length = 60)
 	private RoleName name;
+	
+
+	public Role() {
+		super();
+	}
 
 	public Role(Long id, RoleName name) {
 		super();

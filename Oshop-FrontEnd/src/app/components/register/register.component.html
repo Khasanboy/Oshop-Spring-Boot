@@ -20,11 +20,11 @@
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" (change)="log()" class="form-control" name="email" [(ngModel)]="email" id="email" #emailField="ngModel" [email]="true" required>
+        <input type="email" appEmailValidator  class="form-control" name="email" [(ngModel)]="email" id="email" #emailField="ngModel" required>
       </div>
       <div class="alert alert-danger" *ngIf="emailField.touched && !emailField.valid">
         <div *ngIf="emailField.errors.required">Email is required</div>
-        <div *ngIf="!validateEmail(emailField.value) && !emailField.errors.required">Not valid email address</div>
+        <div *ngIf="emailField.errors.notValidEmail && !emailField.errors.required">Not valid email address</div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
