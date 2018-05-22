@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../models/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -7,29 +8,51 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AuthService {
 
-  user: User;
+  currentUser: any;
 
-  constructor(private http: HttpClient) { }
+  private _registerUrl = 'api/auth/signup';
+  private _loginUrl = 'api/auth/signin';
 
-  register(user: User) {
-
-    const headers: HttpHeaders = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post('api/auth/signup', user, { headers: headers });
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  login(email: string, password: string){
+  register(user: User) {
+    return this.http.post(this._registerUrl, user);
+  }
 
-    const headers: HttpHeaders = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
+  login(body: any) {
+    return this.http.post(this._loginUrl, body);
+  }
 
-    const body = {email: email, password: password};
+  loggedIn() {
+    return !!localStorage.getItem('accessToken');
+  }
 
-    console.log("Hello bitch")
+  getCurrentUser() {
+    this.http.get("api/user/me").subscribe(
+      data => {
+        this.currentUser = data;
+      },
+      error =>{
+        console.log(error);
+        this.currentUser = null;
+      }
+    )
+  }
 
-    return this.http.post('api/auth/signin', body, { headers: headers });
+  getToken() {
+    return localStorage.getItem('accessToken');
+  }
 
+  saveToken(token: string, tokenType: string) {
+    localStorage.setItem("accessToken", token);
+  }
+
+
+  logout() {
+    localStorage.removeItem("accessToken");
+    this.currentUser = null;
+    this.router.navigate(['/']);
   }
 
 }

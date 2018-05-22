@@ -1,7 +1,7 @@
 <div class="col-md-6 offset-md-3" style="padding: 50px">
   <h2>Login</h2>
   <br>
-  <form (submit)="onLogin()" #loginForm = "ngForm">
+  <form (submit)="login()" #loginForm = "ngForm">
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" class="form-control" name="email" [(ngModel)]="email" id="email" required>
@@ -10,7 +10,7 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" name="password" [(ngModel)]="password" id="password" required>
     </div>
-    <input type="button" class="btn btn-primary btn-block" [disabled]="!loginForm.valid" value="Submit">
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid">Submit</button>
   </form>
   <br>
   <p>Or
