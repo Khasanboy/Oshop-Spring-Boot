@@ -1,5 +1,8 @@
 package com.oshop.payload;
 
+import java.util.Collection;
+import org.springframework.security.core.GrantedAuthority;
+
 public class UserSummary {
 
 	private Long id;
@@ -7,12 +10,15 @@ public class UserSummary {
 	private String name;
 
 	private String surname;
+	
+	private Collection<? extends GrantedAuthority> roles;
 
-	public UserSummary(Long id, String name, String surname) {
+	public UserSummary(Long id, String name, String surname, Collection<? extends GrantedAuthority> roles) {
 		
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
+		this.roles = roles;
 	}
 
 	public Long getId() {
@@ -38,6 +44,14 @@ public class UserSummary {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-		
 
+	public Collection<? extends GrantedAuthority> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<? extends GrantedAuthority> roles) {
+		this.roles = roles;
+	}
+	
+	
 }

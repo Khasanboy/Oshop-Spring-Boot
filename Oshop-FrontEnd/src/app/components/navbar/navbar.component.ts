@@ -13,11 +13,17 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, private flashMessages: FlashMessagesService) { }
 
   ngOnInit() {
+   
+  }
 
-    if (this.authService.getToken()) {
-      this.authService.getCurrentUser();
+  isAdmin(){
+
+    if(this.authService.currentUser.roles.find(role => role.authority === "ROLE_ADMIN")){
+      return true;
     }
-
+    else{
+      return false;
+    }
   }
 
   logout() {

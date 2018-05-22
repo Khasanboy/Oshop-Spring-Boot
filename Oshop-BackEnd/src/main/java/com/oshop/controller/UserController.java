@@ -19,12 +19,12 @@ public class UserController {
 	private UserRepository userRepository;
 	
 	@GetMapping("/me")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
 		
 		System.out.println(currentUser.getId());
 		
-		UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getName(), currentUser.getSurname());
+		UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getName(), currentUser.getSurname(), currentUser.getAuthorities());
 		
 		return userSummary;
 		

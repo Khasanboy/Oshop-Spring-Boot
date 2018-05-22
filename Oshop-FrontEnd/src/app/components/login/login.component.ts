@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(body).subscribe(
       data => {
-        this.authService.saveToken(data['accessToken'], data['tokenType']);
+        this.authService.saveToken(data['accessToken']);
         this.authService.getCurrentUser();     
-        this.router.navigate(["/"]);
+        this.router.navigate([localStorage.getItem('returnUrl')]);
         this.flashMessages.show("Logged in successfull", { cssClass: 'alert-success text-center', timeout: 2000 });
       },
       error => {
