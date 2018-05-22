@@ -1,3 +1,4 @@
+import { AuthGuardService } from './services/auth-guard.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -49,7 +50,7 @@ import { UserService } from './services/user.service';
     NgbModule.forRoot(),
     FlashMessagesModule.forRoot()
   ],
-  providers: [AuthService, UserService,
+  providers: [AuthService, UserService, AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
