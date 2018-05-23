@@ -39,7 +39,7 @@ export class AuthService {
       },
       error =>{
         console.log(error);
-        this.currentUser = null;
+        //this.currentUser = null;
       }
     )
   }

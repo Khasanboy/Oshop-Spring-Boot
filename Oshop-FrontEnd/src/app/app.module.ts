@@ -1,3 +1,4 @@
+import { CategoryService } from './services/category.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -25,6 +26,7 @@ import { AdminProductsComponent } from './components/admin/admin-products/admin-
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserService } from './services/user.service';
+import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { UserService } from './services/user.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     RegisterComponent,
-    EmailValidatorDirective
+    EmailValidatorDirective,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,7 @@ import { UserService } from './services/user.service';
     NgbModule.forRoot(),
     FlashMessagesModule.forRoot()
   ],
-  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService,
+  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
