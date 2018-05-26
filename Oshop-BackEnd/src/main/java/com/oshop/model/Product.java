@@ -2,6 +2,7 @@ package com.oshop.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="products")
@@ -30,26 +33,37 @@ public class Product implements Serializable{
 	@NotBlank
 	private String title;
 	
-	@NotBlank
 	private BigDecimal price;
 	
-	@NotBlank
+	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinTable(name="product_category",
 			joinColumns=@JoinColumn(name="product_id"),
 			inverseJoinColumns = @JoinColumn(name="category_id")
 			)
 	private Category category;
+	
+	@NotBlank
+	private String imgUrl;
 
 	public Product() {
 		super();
 	}
 
-	public Product(Long id, @NotBlank String title, @NotBlank BigDecimal price, @NotBlank Category category) {
+	public Product(@NotBlank String title, BigDecimal price, Category category, @NotBlank String imgUrl) {
+		this.title = title;
+		this.price = price;
+		this.category = category;
+		this.imgUrl = imgUrl;
+	}
+	
+
+	public Product(Long id, @NotBlank String title, BigDecimal price, Category category, @NotBlank String imgUrl) {
 		this.id = id;
 		this.title = title;
 		this.price = price;
 		this.category = category;
+		this.imgUrl = imgUrl;
 	}
 
 	public Long getId() {
@@ -82,6 +96,14 @@ public class Product implements Serializable{
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 }

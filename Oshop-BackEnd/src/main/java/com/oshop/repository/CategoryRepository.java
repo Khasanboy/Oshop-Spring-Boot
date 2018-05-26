@@ -8,6 +8,4 @@ import com.oshop.model.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, String>{
 	
-	
-	
 }

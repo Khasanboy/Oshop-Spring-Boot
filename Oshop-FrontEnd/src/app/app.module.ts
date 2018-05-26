@@ -1,3 +1,4 @@
+import { ProductService } from './services/product.service';
 import { CategoryService } from './services/category.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -8,6 +9,7 @@ import { EmailValidatorDirective } from './directives/email-validator.directive'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CustomFormsModule } from 'ng2-validation'
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FlashMessagesModule} from "angular2-flash-messages";
 
@@ -50,11 +52,12 @@ import { ProductFormComponent } from './components/admin/product-form/product-fo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CustomFormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
     FlashMessagesModule.forRoot()
   ],
-  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService,
+  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService, ProductService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
