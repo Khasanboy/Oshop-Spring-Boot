@@ -1,5 +1,7 @@
 import { ProductService } from './../../../services/product.service';
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../../../models/product';
+import { DataTableResource } from 'angular5-data-table';
 
 @Component({
   selector: 'app-admin-products',
@@ -8,18 +10,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProductsComponent implements OnInit {
 
-  products;
+  products: Product[];
+  tableResource: DataTableResource<Product>;
+  items: Product[] = [];
+  itemCount: number;
+
   constructor(private productService: ProductService) {
     this.productService.getAllProducts().subscribe(
-      data => this.products = data,
+      (data: Product[]) => {
+        this.products = data;
+        this.initializeTable(data);
+      },
       error => console.log(error)
     )
+  }
+
+  private initializeTable(products: Product[]) {
+    this.tableResource = new DataTableResource(products);
+    this.tableResource.query({ offset: 0 })
+      .then(items => { this.items = items });
+
+    this.tableResource.count()
+      .then(count => this.itemCount = count);
+  }
+
+  reloadItems(params) {
+
+    if (!this.tableResource) return;
+
+    this.tableResource.query(params)
+      .then(items => { this.items = items });
   }
 
   ngOnInit() {
   }
 
-
+  filter(query: string) {
+    let filteredProducts = (query) ?
+      this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase())) :
+      this.products;
+    this.initializeTable(filteredProducts);
+  }
 
 
 }

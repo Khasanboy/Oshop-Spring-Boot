@@ -40,11 +40,11 @@
         <h6 class="error-text" *ngIf="imageUrl.errors.url">Please enter a valid URL</h6>
       </div>
       <button class="btn btn-primary" type="submit" [disabled]="f.invalid">Save</button>
-      <button class="btn btn-danger" type="button" (click)="deleteProduct()">Delete</button>
+      <button class="btn btn-danger" type="button" (click)="deleteProduct()" [disabled]="f.invalid">Delete</button>
     </form>
   </div>
   <div class="col-md-6">
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;" *ngIf="product.title">
       <img class="card-img-top" [src]="product.imageUrl" *ngIf="product.imageUrl">
       <div class="card-body">
         <h5 class="card-title">{{product.title}}</h5>

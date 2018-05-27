@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation'
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FlashMessagesModule} from "angular2-flash-messages";
+import {DataTableModule} from "angular5-data-table";
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -55,7 +56,8 @@ import { ProductFormComponent } from './components/admin/product-form/product-fo
     CustomFormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    DataTableModule.forRoot()
   ],
   providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService, ProductService,
     {
