@@ -19,7 +19,7 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute) {
 
-    catergoryService.getCategories().subscribe(
+    catergoryService.getAllCategories().subscribe(
       data => this.categories = data,
       error => console.log(error)
     );

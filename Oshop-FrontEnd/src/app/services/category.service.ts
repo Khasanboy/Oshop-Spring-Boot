@@ -10,7 +10,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(){
+  getAllCategories(){
     return this.http.get(this.categoryUrl);
   }
 }

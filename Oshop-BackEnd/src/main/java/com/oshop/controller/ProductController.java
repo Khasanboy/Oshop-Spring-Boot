@@ -1,6 +1,8 @@
 package com.oshop.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,9 +39,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/")
-	public List<Product> getAllProducts(){
+	public List<ProductResponse> getAllProducts(){
 		
-		return this.productService.getAllProducts();
+	 return this.productService.getAllProducts().stream().map(product -> new ProductResponse(product.getId(), product.getTitle(), product.getPrice(), product.getCategory().getId(), product.getImgUrl()))
+		.collect(Collectors.toList());
 	
 	}
 	
