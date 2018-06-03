@@ -30,6 +30,8 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
 import { RegisterComponent } from './components/register/register.component';
 import { UserService } from './services/user.service';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
+import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { ProductFormComponent } from './components/admin/product-form/product-fo
     AdminOrdersComponent,
     RegisterComponent,
     EmailValidatorDirective,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

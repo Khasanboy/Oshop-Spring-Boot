@@ -11,13 +11,13 @@ import com.oshop.model.Category;
 import com.oshop.service.CategoryService;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
 	
-	@GetMapping("/categories")
+	@GetMapping("/")
 	public List<Category> getAllCategories(){
 		
 		return this.categoryService.getAllCategiries();
