@@ -32,6 +32,7 @@ import { UserService } from './services/user.service';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ShoppingCartService } from './services/shopping-cart.service';
 
 
 @NgModule({
@@ -63,7 +64,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     FlashMessagesModule.forRoot(),
     DataTableModule.forRoot()
   ],
-  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService, ProductService,
+  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService, ProductService, ShoppingCartService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

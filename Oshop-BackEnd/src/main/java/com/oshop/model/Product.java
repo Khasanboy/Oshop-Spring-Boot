@@ -2,8 +2,6 @@ package com.oshop.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Optional;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

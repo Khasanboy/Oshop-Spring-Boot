@@ -28,8 +28,6 @@ export class ProductsComponent implements OnInit {
        })
        .subscribe(params => {
           this.category = params.get('category');
-          console.log(this.category);
-          console.log(this.products)
           this.filteredProducts = (this.category) ? this.products.filter(p => p.category == this.category) : this.products;
         }),
       error => console.log(error);
