@@ -1,6 +1,7 @@
 package com.oshop.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -32,13 +33,13 @@ public class ShoppingCart extends DateAudit {
 	@JoinTable(name="shoppingCart_items",
 			joinColumns = @JoinColumn(name ="shoppingCart_id"),
 			inverseJoinColumns = @JoinColumn(name = "item_id"))
-	private Set<Role> items = new HashSet<>();
+	private Set<ShoppingCartItem> items = new HashSet<>();
 
 	public ShoppingCart() {
 		super();
 	}
 
-	public ShoppingCart(Long id, Set<Role> items) {
+	public ShoppingCart(Long id, Set<ShoppingCartItem> items) {
 		super();
 		this.id = id;
 		this.items = items;
@@ -52,12 +53,28 @@ public class ShoppingCart extends DateAudit {
 		this.id = id;
 	}
 
-	public Set<Role> getItems() {
+	public Set<ShoppingCartItem> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<Role> items) {
+	public void setItems(Set<ShoppingCartItem> items) {
 		this.items = items;
+	}
+	
+	public void addItem(ShoppingCartItem item) {
+		this.items.add(item);
+	}
+	
+	public void removeItem(Long id) {
+		Iterator<ShoppingCartItem> items = this.items.iterator();
+		
+		while(items.hasNext()) {
+			
+			if(items.next().getId().equals(id)) {
+				items.remove();
+			}
+		}
+		
 	}
 		
 }
