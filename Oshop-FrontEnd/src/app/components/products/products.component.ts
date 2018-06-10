@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
-import "rxjs/add/operator/switchMap";
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-products',
@@ -28,11 +28,9 @@ export class ProductsComponent implements OnInit {
        })
        .subscribe(params => {
           this.category = params.get('category');
-          this.filteredProducts = (this.category) ? this.products.filter(p => p.category == this.category) : this.products;
-        }),
-      error => console.log(error);
-
-  }
+          this.filteredProducts = (this.category) ? this.products.filter(p => p.category === this.category) : this.products;
+        });
+     }
 
   ngOnInit() {
   }

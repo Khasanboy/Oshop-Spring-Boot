@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.oshop.model.audit.DateAudit;
@@ -29,7 +29,7 @@ public class ShoppingCart extends DateAudit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="shoppingCart_items",
 			joinColumns = @JoinColumn(name ="shoppingCart_id"),
 			inverseJoinColumns = @JoinColumn(name = "item_id"))

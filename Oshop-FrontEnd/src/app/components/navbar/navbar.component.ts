@@ -13,22 +13,21 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, private flashMessages: FlashMessagesService) { }
 
   ngOnInit() {
-   
+
   }
 
-  isAdmin(){
+  isAdmin() {
 
-    if(this.authService.currentUser.roles.find(role => role.authority === "ROLE_ADMIN")){
+    if (this.authService.currentUser.roles.find(role => role.authority === 'ROLE_ADMIN'))  {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
   logout() {
     this.authService.logout();
-    this.flashMessages.show("Logged out", { cssClass: "alert-success", timeout: 2000 });
+    this.flashMessages.show('Logged out', { cssClass: 'alert-success', timeout: 2000 });
   }
 
 }

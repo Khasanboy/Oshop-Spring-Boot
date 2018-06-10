@@ -1,49 +1,76 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
+import 'rxjs/add/operator/take';
+import { ShoppingCartItem } from '../models/shopping-cart-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  private url = 'api/shopping-carts/';
 
-  private getAllUrl = 'api/shopping-carts/';
-  private getOneByIdUrl = 'api/shopping-carts/';
-  private addCartUrl = 'api/shopping-carts/';
-  private deleteCartUrl = 'api/shopping-carts/';
-  private updateCartUrl = 'api/shopping-carts/';
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  private getShoppingCartItem(cartId: string, itemId: string) {
+    return this.http.get(this.url + cartId + '/items/' + itemId);
+  }
+
+  private createShoppingCartItem(cartId: string, cartItem: ShoppingCartItem) {
+    return this.http.post(this.url + cartId + '/items', cartItem);
+  }
+  private updateShoppingCartItem(cartId: string, productId: string, item: ShoppingCartItem) {
+    return this.http.put(this.url + cartId + '/items/' + productId, item);
+  }
+
+  private deleteShoppingCartItem() {
+
+  }
 
   private getCart(cartId: string) {
-    return this.http.get(this.getOneByIdUrl + { cartId });
+    return this.http.get(this.url + cartId);
   }
 
-  private create() {
-
-    return this.http.post(this.addCartUrl, {});
+  private createCart() {
+    return this.http.post(this.url, {});
   }
 
-  private getOrCreateCartId() {
-
-    let cartId = localStorage.getItem('cartId');
-
-    if (cartId) return cartId;
-
-    this.create().subscribe(
-      data => {
-        console.log(data);
-        localStorage.setItem('cartId', data['id']);
-        return data['id'];
+  private addProductToCard(cartId, product) {
+    this.getShoppingCartItem(cartId, product.id).subscribe(
+      (data: ShoppingCartItem) => {
+        if (data != null) {
+          data.quantity = data.quantity + 1;
+          this.updateShoppingCartItem(cartId, product.id, data).subscribe(
+            dataUp => console.log(dataUp),
+            error => console.log(error)
+          );
+        } else {
+          const shoppingCartItem: ShoppingCartItem = new ShoppingCartItem(1, product.id);
+          this.createShoppingCartItem(cartId, shoppingCartItem).subscribe(
+            (data1: ShoppingCartItem) => console.log(data1),
+            error => console.log(error)
+          );
+        }
       },
       error => {
-        console.log(error)
-        return;
-      })
+        console.log(error);
+      }
+    );
   }
 
-  async addToCart(product: Product) {
-    let cart = await this.getOrCreateCartId();
-    
+ addToCart(product: Product) {
+    const cartId = localStorage.getItem('cartId');
+    if (cartId) {
+      this.addProductToCard(cartId, product);
+      return;
+    } else {
+      this.createCart().subscribe(
+        dataCart => {
+          localStorage.setItem('cartId', dataCart['id']);
+          this.addProductToCard(dataCart['id'], product);
+        },
+        error => console.log(error)
+      );
+    }
   }
 }

@@ -22,13 +22,13 @@ export class AdminProductsComponent implements OnInit {
         this.initializeTable(data);
       },
       error => console.log(error)
-    )
+    );
   }
 
   private initializeTable(products: Product[]) {
     this.tableResource = new DataTableResource(products);
     this.tableResource.query({ offset: 0 })
-      .then(items => { this.items = items });
+      .then(items => { this.items = items; });
 
     this.tableResource.count()
       .then(count => this.itemCount = count);
@@ -36,17 +36,17 @@ export class AdminProductsComponent implements OnInit {
 
   reloadItems(params) {
 
-    if (!this.tableResource) return;
+    if (!this.tableResource) { return; }
 
     this.tableResource.query(params)
-      .then(items => { this.items = items });
+      .then(items => { this.items = items; });
   }
 
   ngOnInit() {
   }
 
   filter(query: string) {
-    let filteredProducts = (query) ?
+    const filteredProducts = (query) ?
       this.products.filter(product => product.title.toLowerCase().includes(query.toLowerCase())) :
       this.products;
     this.initializeTable(filteredProducts);

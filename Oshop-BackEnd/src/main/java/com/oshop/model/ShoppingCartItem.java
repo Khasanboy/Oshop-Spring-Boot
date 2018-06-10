@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "cartItems", uniqueConstraints = { @UniqueConstraint(columnNames = { "id" }) })
 public class ShoppingCartItem implements Serializable {
@@ -27,6 +29,7 @@ public class ShoppingCartItem implements Serializable {
 
 	private Integer quantity;
 	
+	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinTable(name="cartItems_products",
 			joinColumns = @JoinColumn(name ="cartItem_id"),

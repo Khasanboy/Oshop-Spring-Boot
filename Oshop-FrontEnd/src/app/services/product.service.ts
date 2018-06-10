@@ -8,31 +8,27 @@ import { Product } from '../models/product';
 })
 export class ProductService {
 
-  private getAllUrl = 'api/products/';
-  private getOneByIdUrl = 'api/products/';
-  private addProductUrl = 'api/products/';
-  private deleteProductUrl = 'api/products/';
-  private updateProductUrl = 'api/products/';
+  private url = 'api/products/';
 
   constructor(private http: HttpClient) { }
 
-  getAllProducts(){
-    return this.http.get(this.getAllUrl);
+  getAllProducts() {
+    return this.http.get(this.url);
   }
 
-  getOneProductById(id:number){
-    return this.http.get(this.getOneByIdUrl+id);
+  getOneProductById(id: number) {
+    return this.http.get(this.url + id);
   }
 
-  createProduct(product){
-    return this.http.post(this.addProductUrl, product);
+  createProduct(product) {
+    return this.http.post(this.url, product);
   }
 
-  updateProduct(id, product){
-    return this.http.put(this.updateProductUrl+id, product);
+  updateProduct(id, product) {
+    return this.http.put(this.url + id, product);
   }
 
-  deleteProduct(id:number){
-    return this.http.delete(this.deleteProductUrl+id);
+  deleteProduct(id: number) {
+    return this.http.delete(this.url + id);
   }
 }

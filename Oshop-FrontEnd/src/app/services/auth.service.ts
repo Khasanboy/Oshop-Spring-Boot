@@ -21,8 +21,8 @@ export class AuthService {
   }
 
   login(body: any) {
-    
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')|| '/';
+
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
     return this.http.post(this._loginUrl, body);
@@ -33,15 +33,15 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    this.http.get("api/user/me").subscribe(
+    this.http.get('api/user/me').subscribe(
       data => {
         this.currentUser = data;
       },
-      error =>{
+      error => {
         console.log(error);
-        //this.currentUser = null;
+        // this.currentUser = null;
       }
-    )
+    );
   }
 
   getToken() {
@@ -49,12 +49,12 @@ export class AuthService {
   }
 
   saveToken(token: string) {
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem('accessToken', token);
   }
 
 
   logout() {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem('accessToken');
     this.currentUser = null;
     this.router.navigate(['/']);
   }

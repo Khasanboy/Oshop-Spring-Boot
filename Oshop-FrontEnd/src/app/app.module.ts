@@ -9,10 +9,10 @@ import { EmailValidatorDirective } from './directives/email-validator.directive'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CustomFormsModule } from 'ng2-validation'
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {FlashMessagesModule} from "angular2-flash-messages";
-import {DataTableModule} from "angular5-data-table";
+import { CustomFormsModule } from 'ng2-validation';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FlashMessagesModule} from 'angular2-flash-messages';
+import {DataTableModule} from 'angular5-data-table';
 
 import { AppRoutingModule } from './app-routing.module';
 

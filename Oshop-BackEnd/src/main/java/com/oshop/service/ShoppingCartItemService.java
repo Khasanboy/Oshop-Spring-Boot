@@ -11,10 +11,10 @@ public interface ShoppingCartItemService {
 	
 	public Optional<ShoppingCartItem> getById(Long id);
 	
-	public Optional<ShoppingCartItem> getByProductId(Long id);
+	public ShoppingCartItem addShoppingCartItem(ShoppingCartItem item);
 	
-	public void addShoppingCartItem(ShoppingCartItem item);
+	public void deleteShoppingCartItem(Long id);
 	
-	public void deleteShoppingCart(Long id);
+	public ShoppingCartItem updateShoppingCartItem(ShoppingCartItem item);
 
 }

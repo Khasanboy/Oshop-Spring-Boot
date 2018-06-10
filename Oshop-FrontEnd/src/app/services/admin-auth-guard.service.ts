@@ -12,19 +12,19 @@ export class AdminAuthGuardService implements CanActivate {
 
   canActivate() {
 
-    if(this.authService.loggedIn()){
+    if (this.authService.loggedIn()) {
 
-      if (this.authService.currentUser.roles.find(role => role.authority === "ROLE_ADMIN")) {
+      if (this.authService.currentUser.roles.find(role => role.authority === 'ROLE_ADMIN')) {
 
         return true;
-  
+
       }
     }
 
-   
+
 
     this.router.navigate(['/']);
-    this.flashMessages.show("You don't have creadentials for this page", { cssClass: 'alert-danger', timeout: 3000 });
+    this.flashMessages.show('You don\'t have creadentials for this page', { cssClass: 'alert-danger', timeout: 3000 });
     return false;
   }
 

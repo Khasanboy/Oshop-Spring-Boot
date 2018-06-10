@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.oshop.model.ShoppingCartItem;
 import com.oshop.repository.ShoppingCartItemRepository;
 import com.oshop.service.ShoppingCartItemService;
 
+@Service
 public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
 	
 	@Autowired ShoppingCartItemRepository shoppingCartItemRepository;
@@ -24,18 +26,18 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
 	}
 
 	@Override
-	public void addShoppingCartItem(ShoppingCartItem item) {
-		this.shoppingCartItemRepository.save(item);
+	public ShoppingCartItem addShoppingCartItem(ShoppingCartItem item) {
+		return this.shoppingCartItemRepository.save(item);
 	}
 
 	@Override
-	public void deleteShoppingCart(Long id) {
+	public void deleteShoppingCartItem(Long id) {
 		this.shoppingCartItemRepository.deleteById(id);
 	}
-
+	
 	@Override
-	public Optional<ShoppingCartItem> getByProductId(Long id) {
-		return this.shoppingCartItemRepository.findByProductId(id);  
+	public ShoppingCartItem updateShoppingCartItem(ShoppingCartItem item) {
+		return this.shoppingCartItemRepository.save(item);
 	}
 
 }

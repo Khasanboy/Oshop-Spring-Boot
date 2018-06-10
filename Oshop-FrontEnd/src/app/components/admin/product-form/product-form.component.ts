@@ -30,7 +30,7 @@ export class ProductFormComponent implements OnInit {
       this.productService.getOneProductById(+this.id).subscribe(
         data => this.product = data,
         error => console.log(error)
-      )
+      );
     }
 
   }
@@ -44,32 +44,31 @@ export class ProductFormComponent implements OnInit {
     if (this.id) {
       this.productService.updateProduct(this.id, product).subscribe(
         data => {
-          this.router.navigate(["/admin/products"]);
+          this.router.navigate(['/admin/products']);
         },
         error => {
           console.log(error);
         }
-      )
-    }
-    else {
+      );
+    } else {
       this.productService.createProduct(product).subscribe(
         data => {
-          this.router.navigate(["/admin/products"]);
+          this.router.navigate(['/admin/products']);
         },
         error => console.log(error)
-      )
+      );
     }
   }
 
   deleteProduct() {
-    console.log("deleting")
+    console.log('deleting');
     this.productService.deleteProduct(this.id).subscribe(
       data => {
-        console.log("deleted");
+        console.log('deleted');
         this.router.navigate(['/admin/products']);
     },
       error => console.log(error)
-    )
+    );
   }
 
 }

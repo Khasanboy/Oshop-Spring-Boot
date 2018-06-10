@@ -25,14 +25,14 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(user).subscribe(
       data => {
-         console.log(data)
-         this.router.navigate(["/login"]);
+         console.log(data);
+         this.router.navigate(['/login']);
         },
 
       error => {
         console.log(error);
       }
-    )
+    );
 
   }
 
