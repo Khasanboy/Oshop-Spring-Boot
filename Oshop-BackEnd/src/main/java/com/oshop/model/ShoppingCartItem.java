@@ -12,10 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "cartItems", uniqueConstraints = { @UniqueConstraint(columnNames = { "id" }) })
+@Table(name = "items", uniqueConstraints = { @UniqueConstraint(columnNames = { "id" }) })
 public class ShoppingCartItem implements Serializable {
 
 	/**
@@ -30,8 +28,8 @@ public class ShoppingCartItem implements Serializable {
 	private Integer quantity;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinTable(name="cartItems_products",
-			joinColumns = @JoinColumn(name ="cartItem_id"),
+	@JoinTable(name="item_product",
+			joinColumns = @JoinColumn(name ="item_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private Product product;
 

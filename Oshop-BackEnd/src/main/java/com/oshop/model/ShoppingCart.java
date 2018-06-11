@@ -30,8 +30,8 @@ public class ShoppingCart extends DateAudit {
 	private Long id;
 	
 	@OneToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="shoppingCart_items",
-			joinColumns = @JoinColumn(name ="shoppingCart_id"),
+	@JoinTable(name="cart_items",
+			joinColumns = @JoinColumn(name ="cart_id"),
 			inverseJoinColumns = @JoinColumn(name = "item_id"))
 	private Set<ShoppingCartItem> items = new HashSet<>();
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../models/product';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ShoppingCart } from '../../models/shopping-cart';
+import { ShoppingCartItem } from '../../models/shopping-cart-item';
 
 @Component({
   selector: 'app-product-card',
@@ -11,12 +12,11 @@ import { ShoppingCart } from '../../models/shopping-cart';
 export class ProductCardComponent implements OnInit {
   @Input('product') product: Product;
   @Input('show-actions') showActions = true;
-  @Input('shopping-cart') shoppingCart: ShoppingCart;
-  quantity = 0;
   found = false;
+  quantity: number;
+  item: ShoppingCartItem;
 
   constructor(private shoppingCartService: ShoppingCartService) {
-    // this.shoppingCartService
   }
 
   ngOnInit() {
@@ -24,32 +24,27 @@ export class ProductCardComponent implements OnInit {
 
   addToCart(product: Product) {
     this.shoppingCartService.addToCart(product);
-    this.shoppingCartService.getCart().subscribe(
-      (data: ShoppingCart) => {
-        this.shoppingCart = data;
-        this.getQuantity();
-        console.log(this.shoppingCart);
-      },
-      error => console.log(error)
-  );
-
   }
 
   getQuantity() {
-    if (!this.shoppingCart) {
-      this.quantity = 0;
-      return;
-    } else {
-      for (let i = 0; i < this.shoppingCart.items.length; i++) {
-        if (this.shoppingCart.items[i].product.id == this.product.id) {
-          this.found =  true;
-          console.log(this.shoppingCart.items[i]);
-          this.quantity =  this.shoppingCart.items[i].quantity;
+    this.shoppingCartService.getCart().subscribe(
+      (cart: ShoppingCart) => {
+        if (!cart) {
+          return 0;
+        } else {
+          for (let i = 0; i < cart.items.length; i++) {
+            if (cart.items[i].product.id == this.product.id) {
+              this.found =  true;
+              return cart.items[i].quantity;
+            }
+          }
+         if (!this.found) { return 0; }
         }
+      },
+      error => {
+        console.log(error);
       }
-
-     // if (!this.found) { return 0; }
-    }
+    );
   }
 
 }
