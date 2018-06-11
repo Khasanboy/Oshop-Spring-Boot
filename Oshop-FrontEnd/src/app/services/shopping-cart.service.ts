@@ -16,19 +16,33 @@ export class ShoppingCartService {
     return this.http.get(this.url + cartId + '/items/' + itemId);
   }
 
-  private createShoppingCartItem(cartId: string, cartItem: ShoppingCartItem) {
+  private createShoppingCartItem(cartId: string, cartItem) {
     return this.http.post(this.url + cartId + '/items', cartItem);
   }
-  private updateShoppingCartItem(cartId: string, productId: string, item: ShoppingCartItem) {
+  private updateShoppingCartItem(
+    cartId: string,
+    productId: string,
+    item: ShoppingCartItem
+  ) {
     return this.http.put(this.url + cartId + '/items/' + productId, item);
   }
 
-  private deleteShoppingCartItem() {
+  private deleteShoppingCartItem() {}
 
-  }
+  getCart() {
+    const cartId = localStorage.getItem('cartId');
+    if (cartId) {
+      return this.http.get(this.url + cartId);
+    } else {
+      this.createCart().subscribe(
+        createdCart => {
+          localStorage.setItem('cartId', createdCart['id']);
+          return createdCart;
 
-  private getCart(cartId: string) {
-    return this.http.get(this.url + cartId);
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   private createCart() {
@@ -45,8 +59,7 @@ export class ShoppingCartService {
             error => console.log(error)
           );
         } else {
-          const shoppingCartItem: ShoppingCartItem = new ShoppingCartItem(1, product.id);
-          this.createShoppingCartItem(cartId, shoppingCartItem).subscribe(
+          this.createShoppingCartItem(cartId, {'quantity': 1, 'productId': product.id}).subscribe(
             (data1: ShoppingCartItem) => console.log(data1),
             error => console.log(error)
           );
@@ -58,7 +71,7 @@ export class ShoppingCartService {
     );
   }
 
- addToCart(product: Product) {
+  addToCart(product: Product) {
     const cartId = localStorage.getItem('cartId');
     if (cartId) {
       this.addProductToCard(cartId, product);

@@ -1,7 +1,6 @@
 package com.oshop.controller;
 
 import java.time.Instant;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -83,11 +82,14 @@ public class ShoppingCartController {
 	
 	@PostMapping("/{cartId}/items")
 	public ShoppingCartItem createShoppingCartItem(@PathVariable Long cartId, @RequestBody CreateShoppingCartItemRequest request) {
-		System.out.println("Came post "+ request.toString());
+		System.out.println("Came post "+ request.getId());
+		System.out.println("Product id "+ request.getProductId());
+		System.out.println("Quantity "+request.getQuantity());
 		Product product = this.productService.getProductById(request.getProductId()).orElse(null);
 		ShoppingCartItem result;
 		if(product!= null) {
 			ShoppingCartItem item = new ShoppingCartItem();
+			//item.setId(request.getProductId());
 			item.setQuantity(request.getQuantity());
 			item.setProduct(product);
 			result = this.shoppingCartItemService.addShoppingCartItem(item);

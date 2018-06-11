@@ -29,8 +29,7 @@ public class ShoppingCartItem implements Serializable {
 
 	private Integer quantity;
 	
-	@JsonIgnore
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinTable(name="cartItems_products",
 			joinColumns = @JoinColumn(name ="cartItem_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id"))
