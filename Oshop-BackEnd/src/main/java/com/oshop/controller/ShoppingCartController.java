@@ -67,11 +67,8 @@ public class ShoppingCartController {
 
 	@GetMapping("/{cartId}/items/{productId}")
 	public CreateShoppingCartItemRequest getShoppingCartItem(@PathVariable("cartId") Long cartId, @PathVariable("productId") Long productId) {
-		System.out.println("Came  cardId"+ cartId+ " productId "+productId);
 		Set<ShoppingCartItem> items = this.shoppingCartService.getById(cartId).orElse(null).getItems();
-
 		for (ShoppingCartItem cartItem : items) {
-			System.out.println(cartItem.getProduct().getId());
 			if (cartItem.getProduct().getId() == productId) {
 				return new CreateShoppingCartItemRequest(cartItem.getId(), cartItem.getQuantity(), cartItem.getProduct().getId());
 			}
@@ -81,20 +78,16 @@ public class ShoppingCartController {
 	}
 	
 	@PostMapping("/{cartId}/items")
-	public ShoppingCartItem createShoppingCartItem(@PathVariable Long cartId, @RequestBody CreateShoppingCartItemRequest request) {
-		System.out.println("Came post "+ request.getId());
-		System.out.println("Product id "+ request.getProductId());
-		System.out.println("Quantity "+request.getQuantity());
+	public ShoppingCart createShoppingCartItem(@PathVariable Long cartId, @RequestBody CreateShoppingCartItemRequest request) {
 		Product product = this.productService.getProductById(request.getProductId()).orElse(null);
 		ShoppingCartItem result;
 		if(product!= null) {
 			ShoppingCartItem item = new ShoppingCartItem();
-			//item.setId(request.getProductId());
 			item.setQuantity(request.getQuantity());
 			item.setProduct(product);
 			result = this.shoppingCartItemService.addShoppingCartItem(item);
-			this.shoppingCartService.getById(cartId).get().addItem(result);			
-			return this.shoppingCartItemService.addShoppingCartItem(item);
+			ShoppingCart cart = this.shoppingCartService.getById(cartId).get().addItem(result);	
+			return this.shoppingCartService.updateShoppingCart(cart);
 		}
 		
 		return null;
@@ -102,19 +95,17 @@ public class ShoppingCartController {
 	
 
 	@PutMapping("/{cartId}/items/{productId}")
-	public ShoppingCartItem updateShoppingCartItem(@PathVariable Long cartId, @PathVariable Long productId,
+	public ShoppingCart updateShoppingCartItem(@PathVariable Long cartId, @PathVariable Long productId,
 			@RequestBody CreateShoppingCartItemRequest request) {
-		System.out.println("Cameee");
 		Set<ShoppingCartItem> items = this.shoppingCartService.getById(cartId).get().getItems();
 		for(ShoppingCartItem item: items) {
 			if (item.getProduct().getId() == productId) {
 				item.setQuantity(request.getQuantity());
-				return this.shoppingCartItemService.updateShoppingCartItem(item);
+				this.shoppingCartItemService.updateShoppingCartItem(item);
 			}
 		}
 
-		return null;
-
+		return this.shoppingCartService.getById(cartId).get();
 	}
 	
 	

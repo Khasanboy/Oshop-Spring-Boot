@@ -61,8 +61,9 @@ public class ShoppingCart extends DateAudit {
 		this.items = items;
 	}
 	
-	public void addItem(ShoppingCartItem item) {
+	public ShoppingCart addItem(ShoppingCartItem item) {
 		this.items.add(item);
+		return this;
 	}
 	
 	public void removeItem(Long id) {

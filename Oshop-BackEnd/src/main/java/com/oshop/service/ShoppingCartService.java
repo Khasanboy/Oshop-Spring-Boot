@@ -14,5 +14,7 @@ public interface ShoppingCartService {
 	public ShoppingCart addShoppingCart(ShoppingCart shoppingCart);
 	
 	public void deleteShoppingCart(Long id);
+	
+	public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart);
 
 }

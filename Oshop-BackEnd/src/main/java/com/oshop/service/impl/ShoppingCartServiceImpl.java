@@ -35,4 +35,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		this.shoppingCartRepository.deleteById(id);
 	}
 
+	@Override
+	public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart) {
+		return this.shoppingCartRepository.save(shoppingCart);
+	}
+	
+
 }

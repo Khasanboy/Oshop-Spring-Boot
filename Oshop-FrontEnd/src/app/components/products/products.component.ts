@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
   category;
+  shoppingCart: ShoppingCart = null;
 
   constructor(
     private productService: ProductService,
@@ -25,7 +26,7 @@ export class ProductsComponent implements OnInit {
       .getAllProducts()
       .switchMap((products: Product[]) => {
         this.products = products;
-        return route.queryParamMap;
+        return this.route.queryParamMap;
       })
       .subscribe(params => {
         this.category = params.get('category');
@@ -33,8 +34,10 @@ export class ProductsComponent implements OnInit {
           ? this.products.filter(p => p.category === this.category)
           : this.products;
       });
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.shoppingCart = await this.shoppingCartService.getCart();
   }
 }

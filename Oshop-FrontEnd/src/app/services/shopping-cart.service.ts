@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { ShoppingCartItem } from '../models/shopping-cart-item';
-import { ShoppingCart } from '../models/shopping-cart';
-import {tap} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,85 +12,51 @@ export class ShoppingCartService {
 
   constructor(private http: HttpClient) {}
 
-  private getShoppingCartItem(cartId: string, itemId: string) {
-    return this.http.get(this.url + cartId + '/items/' + itemId);
+  private async getShoppingCartItem(cartId: string, itemId: string): Promise<any> {
+    return await this.http.get(this.url + cartId + '/items/' + itemId).toPromise();
   }
 
-  private createShoppingCartItem(cartId: string, cartItem) {
-    return this.http.post(this.url + cartId + '/items', cartItem);
+  private async createShoppingCartItem(cartId: string, cartItem): Promise<any> {
+    return await this.http.post(this.url + cartId + '/items', cartItem).toPromise();
   }
-  private updateShoppingCartItem(cartId: string, productId: string, item: ShoppingCartItem) {
-    return this.http.put(this.url + cartId + '/items/' + productId, item);
-  }
-
-  private deleteShoppingCartItem() {}
-
-  private createCart() {
-    return this.http.post(this.url, {}).pipe(
-      tap(
-        (cart: ShoppingCart) => {
-        localStorage.setItem('cartId', cart.id.toString());
-      },
-      error => {
-        console.log(error);
-        return;
-      }
-      )
-    );
+  private async updateShoppingCartItem(
+    cartId: string,
+    productId: string,
+    item: ShoppingCartItem
+  ) {
+    return await this.http.put(this.url + cartId + '/items/' + productId, item).toPromise();
   }
 
-  private addProductToCard(cartId, product) {
-    this.getShoppingCartItem(cartId, product.id).subscribe(
-      (data: ShoppingCartItem) => {
-        if (data != null) {
-          data.quantity = data.quantity + 1;
-          this.updateShoppingCartItem(cartId, product.id, data).subscribe(
-            (updatedCartItem: ShoppingCartItem) => {
-              console.log(updatedCartItem);
-              this.getCart();
-            },
-            error => {
-              console.log(error);
-            }
-          );
-        } else {
-          this.createShoppingCartItem(cartId, {'quantity': 1, 'productId': product.id}).subscribe(
-            (data1: ShoppingCartItem) => {
-              console.log(data1);
-              this.getCart();
-            },
-            error => {
-              console.log(error);
-              return;
-            }
-          );
-        }
-      },
-      error => {
-        console.log(error);
-        return;
-      }
-    );
+  private async createCart() {
+    return await this.http.post(this.url, {}).toPromise();
   }
 
-  getCart() {
+  private async getCartFromAPI(cartId) {
+    return await this.http.get(this.url + cartId).toPromise();
+  }
+
+  async getCart(): Promise<any> {
     const cartId = localStorage.getItem('cartId');
     if (cartId) {
-      return this.http.get(this.url + cartId);
+      return await this.getCartFromAPI(cartId);
     } else {
-      return this.createCart();
+      const cart = await this.createCart();
+      localStorage.setItem('cartId', cart['id']);
+      return cart;
     }
   }
 
-  addToCart(product: Product) {
-    this.getCart().subscribe(
-      (cart: ShoppingCart) => {
-        this.addProductToCard(cart.id, product);
-      },
-      error => {
-        console.log(error);
-        return;
-      }
-    );
+  async addToCart(product: Product) {
+
+    let cart = await this.getCart();
+    const cartItem = await this.getShoppingCartItem(cart.id, product.id);
+
+    if (cartItem) {
+      cartItem.quantity = cartItem.quantity + 1;
+      cart = await this.updateShoppingCartItem(cart.id, product.id, cartItem);
+    } else {
+      cart = await this.createShoppingCartItem(cart.id, {quantity: 1, productId: product.id});
+    }
+    return cart;
   }
 }

@@ -12,39 +12,28 @@ import { ShoppingCartItem } from '../../models/shopping-cart-item';
 export class ProductCardComponent implements OnInit {
   @Input('product') product: Product;
   @Input('show-actions') showActions = true;
-  found = false;
-  quantity: number;
+  @Input('shopping-cart') shoppingCart;
   item: ShoppingCartItem;
 
-  constructor(private shoppingCartService: ShoppingCartService) {
-  }
+  constructor(private shoppingCartService: ShoppingCartService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  addToCart(product: Product) {
-    this.shoppingCartService.addToCart(product);
+  async addToCart(product: Product) {
+    this.shoppingCart = await this.shoppingCartService.addToCart(product);
+    this.getQuantity();
   }
 
   getQuantity() {
-    this.shoppingCartService.getCart().subscribe(
-      (cart: ShoppingCart) => {
-        if (!cart) {
-          return 0;
-        } else {
-          for (let i = 0; i < cart.items.length; i++) {
-            if (cart.items[i].product.id == this.product.id) {
-              this.found =  true;
-              return cart.items[i].quantity;
-            }
-          }
-         if (!this.found) { return 0; }
+    if (!this.shoppingCart) {
+      return 0;
+    } else {
+      for (let i = 0; i < this.shoppingCart.items.length; i++) {
+        if (this.shoppingCart.items[i].product.id == this.product.id) {
+          return this.shoppingCart.items[i].quantity;
         }
-      },
-      error => {
-        console.log(error);
       }
-    );
+      return 0;
+    }
   }
-
 }
