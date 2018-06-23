@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { ShoppingCartItem } from '../models/shopping-cart-item';
+import { ShoppingCart } from '../models/shopping-cart';
 
 
 @Injectable({
@@ -9,6 +10,16 @@ import { ShoppingCartItem } from '../models/shopping-cart-item';
 })
 export class ShoppingCartService {
   private url = 'api/shopping-carts/';
+  private _currentCart: ShoppingCart;
+
+  get currentCart() {
+    return this._currentCart;
+  }
+
+  set currentCart(cart) {
+    const newCart = new ShoppingCart(cart.id, cart.items);
+    this._currentCart = newCart;
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -36,27 +47,45 @@ export class ShoppingCartService {
   }
 
   async getCart(): Promise<any> {
+
     const cartId = localStorage.getItem('cartId');
+    let cart = null;
     if (cartId) {
-      return await this.getCartFromAPI(cartId);
+      cart = await this.getCartFromAPI(cartId);
     } else {
-      const cart = await this.createCart();
+      cart = await this.createCart();
       localStorage.setItem('cartId', cart['id']);
-      return cart;
     }
+
+    this.currentCart = cart;
+    return cart;
   }
 
   async addToCart(product: Product) {
+    return await this.updateItemQuantity(product, 1);
+  }
 
+  async removeFromCart(product: Product) {
+    return await this.updateItemQuantity(product, -1);
+  }
+
+  private async updateItemQuantity(product: Product, change: number) {
     let cart = await this.getCart();
     const cartItem = await this.getShoppingCartItem(cart.id, product.id);
 
     if (cartItem) {
-      cartItem.quantity = cartItem.quantity + 1;
-      cart = await this.updateShoppingCartItem(cart.id, product.id, cartItem);
+      if ( change == -1 && cartItem.quantity == 0) {
+        return cart;
+      } else {
+        cartItem.quantity = cartItem.quantity + change;
+        cart = await this.updateShoppingCartItem(cart.id, product.id, cartItem);
+      }
+
     } else {
       cart = await this.createShoppingCartItem(cart.id, {quantity: 1, productId: product.id});
     }
+
+    this.currentCart = cart;
     return cart;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ShoppingCart } from '../../models/shopping-cart';
@@ -13,15 +13,20 @@ export class ProductCardComponent implements OnInit {
   @Input('product') product: Product;
   @Input('show-actions') showActions = true;
   @Input('shopping-cart') shoppingCart;
-  item: ShoppingCartItem;
+  @Output() cartChangedEvent = new EventEmitter();
 
   constructor(private shoppingCartService: ShoppingCartService) {}
 
   ngOnInit() {}
 
-  async addToCart(product: Product) {
-    this.shoppingCart = await this.shoppingCartService.addToCart(product);
-    this.getQuantity();
+  async addToCart() {
+    const cart = await this.shoppingCartService.addToCart(this.product);
+    this.cartChangedEvent.emit(cart);
+  }
+
+  async removeFromCart() {
+    const cart = await this.shoppingCartService.removeFromCart(this.product);
+    this.cartChangedEvent.emit(cart);
   }
 
   getQuantity() {

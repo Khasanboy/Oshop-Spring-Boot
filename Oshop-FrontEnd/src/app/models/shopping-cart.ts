@@ -8,4 +8,13 @@ export class ShoppingCart {
         this.id = id;
         this.items = items;
     }
+
+    getQuantityOfItems() {
+        let quantity = 0;
+        this.items.forEach(item => {
+            quantity += item.quantity;
+        });
+
+        return quantity;
+    }
 }

@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import 'rxjs/add/operator/switchMap';
@@ -14,7 +14,7 @@ import { ShoppingCart } from '../../models/shopping-cart';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  category;
+  category: string;
   shoppingCart: ShoppingCart = null;
 
   constructor(
@@ -39,5 +39,9 @@ export class ProductsComponent implements OnInit {
 
   async ngOnInit() {
     this.shoppingCart = await this.shoppingCartService.getCart();
+  }
+
+  reassignCart(cart: ShoppingCart) {
+    this.shoppingCart = cart;
   }
 }
