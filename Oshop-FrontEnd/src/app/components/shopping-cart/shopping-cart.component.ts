@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingCartService } from '../../services/shopping-cart.service';
+import { ShoppingCart } from '../../models/shopping-cart';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  cart: ShoppingCart = null;
 
-  constructor() { }
+  constructor(public shoppingCartService: ShoppingCartService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    if (this.shoppingCartService.cartExists()) {
+      this.cart = await this.shoppingCartService.getCart();
+      console.log(this.cart);
+    }
   }
-
 }

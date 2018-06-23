@@ -9,7 +9,7 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/shopping-cart">
           Shopping Cart
-          <span *ngIf="shoppingCartService && shoppingCartService.currentCart" class="badge badge-warning pill">{{shoppingCartService.currentCart.getQuantityOfItems()}}</span>
+          <span *ngIf="shoppingCartService && shoppingCartService.currentCart" class="badge badge-warning pill">{{shoppingCartService.currentCart.quantityOfItems}}</span>
         </a>
       </li>
       <li *ngIf="!authService.currentUser" class="nav-item">

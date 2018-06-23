@@ -9,12 +9,20 @@ export class ShoppingCart {
         this.items = items;
     }
 
-    getQuantityOfItems() {
+    get quantityOfItems() {
         let quantity = 0;
         this.items.forEach(item => {
             quantity += item.quantity;
         });
 
         return quantity;
+    }
+
+    get totalPrice() {
+        let price = 0;
+        this.items.forEach(item => {
+            price += item.totalPrice;
+        });
+        return price;
     }
 }

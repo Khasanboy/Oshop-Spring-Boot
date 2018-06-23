@@ -108,5 +108,20 @@ public class ShoppingCartController {
 		return this.shoppingCartService.getById(cartId).get();
 	}
 	
+	@DeleteMapping("/{cartId}/items/{productId}")
+	public ShoppingCart deleteShoppingCartItem(@PathVariable Long cartId, @PathVariable Long productId) {
+		ShoppingCart cart = this.shoppingCartService.getById(cartId).get();
+		Set<ShoppingCartItem> items = cart.getItems();
+		for(ShoppingCartItem item: items) {
+			if(item.getProduct().getId() == productId) {
+				cart.removeItem(item.getId());
+				this.shoppingCartItemService.deleteShoppingCartItem(item.getId());
+				return this.shoppingCartService.updateShoppingCart(cart);
+			}
+		}
+		
+		return null;
+	}
+	
 	
 }

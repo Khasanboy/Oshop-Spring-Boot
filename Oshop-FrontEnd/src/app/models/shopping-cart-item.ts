@@ -10,4 +10,9 @@ export class ShoppingCartItem {
         this.quantity = quantity;
         this.product = product;
     }
+
+    get totalPrice() {
+        console.log(this.quantity * this.product.price);
+        return this.quantity * this.product.price;
+    }
 }

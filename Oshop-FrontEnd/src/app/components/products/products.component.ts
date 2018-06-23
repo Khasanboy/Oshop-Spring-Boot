@@ -38,7 +38,9 @@ export class ProductsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    if (this.shoppingCartService.cartExists()) {
     this.shoppingCart = await this.shoppingCartService.getCart();
+    }
   }
 
   reassignCart(cart: ShoppingCart) {
