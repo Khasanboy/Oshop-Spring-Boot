@@ -12,7 +12,10 @@
     <tbody>
       <tr *ngFor="let item of shoppingCartService.currentCart.items">
         <td>{{item.product.title}}</td>
-        <td>{{item.quantity}}</td>
+        <td>
+        <app-product-quantity [product]="item.product" [shopping-cart]="shoppingCartService.currentCart">
+        </app-product-quantity>
+      </td>
         <td>{{item.totalPrice | currency:'USD':'symbol'}}</td>
       </tr>
     </tbody>
@@ -24,4 +27,5 @@
       </tr>
     </tfoot>
   </table>
+  <button class="btn btn-danger btn-sm" (click)="clearCart()">Clear Shopping Cart</button>
 </ng-container>

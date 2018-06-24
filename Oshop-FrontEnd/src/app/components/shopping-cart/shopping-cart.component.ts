@@ -8,14 +8,18 @@ import { ShoppingCart } from '../../models/shopping-cart';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  cart: ShoppingCart = null;
+   cart: ShoppingCart = null;
 
   constructor(public shoppingCartService: ShoppingCartService) {}
 
   async ngOnInit() {
     if (this.shoppingCartService.cartExists()) {
-      this.cart = await this.shoppingCartService.getCart();
-      console.log(this.cart);
+       this.cart = await this.shoppingCartService.getCart();
+      // console.log(this.cart);
     }
+  }
+
+   async clearCart() {
+    await this.shoppingCartService.clearCart();
   }
 }

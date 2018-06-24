@@ -1,7 +1,6 @@
 package com.oshop.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -66,16 +65,14 @@ public class ShoppingCart extends DateAudit {
 		return this;
 	}
 	
-	public void removeItem(Long id) {
-		Iterator<ShoppingCartItem> items = this.items.iterator();
-		
-		while(items.hasNext()) {
-			
-			if(items.next().getId().equals(id)) {
-				items.remove();
-			}
-		}
-		
+	public ShoppingCart removeItem(ShoppingCartItem item) {
+		this.items.remove(item);
+		return this;
+	}
+	
+	public ShoppingCart removeAllItems() {
+		this.items.clear();
+		return this;
 	}
 		
 }

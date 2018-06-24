@@ -33,6 +33,7 @@ import { ProductFormComponent } from './components/admin/product-form/product-fo
 import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ShoppingCartService } from './services/shopping-cart.service';
+import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ShoppingCartService } from './services/shopping-cart.service';
     EmailValidatorDirective,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,

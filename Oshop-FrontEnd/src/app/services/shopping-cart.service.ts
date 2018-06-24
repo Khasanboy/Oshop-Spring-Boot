@@ -30,6 +30,42 @@ export class ShoppingCartService {
 
   constructor(private http: HttpClient) {}
 
+  cartExists() {
+    return localStorage.getItem('cartId');
+  }
+
+  async getCart(): Promise<any> {
+    const cartId = localStorage.getItem('cartId');
+    let cart = null;
+    if (cartId) {
+      cart = await this.getCartFromAPI(cartId);
+    } else {
+      cart = await this.createCart();
+      localStorage.setItem('cartId', cart['id']);
+    }
+
+    this.currentCart = cart;
+    return this.currentCart;
+  }
+
+  async addToCart(product: Product) {
+    return await this.updateItemQuantity(product, 1);
+  }
+
+  async removeFromCart(product: Product) {
+    return await this.updateItemQuantity(product, -1);
+  }
+
+  async clearCart() {
+    const cart = await this.getCart();
+    this.currentCart = await this.clearShoppingCart(cart.id);
+
+  }
+
+  private async clearShoppingCart(cartId): Promise<any> {
+    return await this.http.delete(this.url + cartId + '/clear').toPromise();
+  }
+
   private async getShoppingCartItem(cartId: string, itemId: string): Promise<any> {
     return await this.http.get(this.url + cartId + '/items/' + itemId).toPromise();
   }
@@ -57,40 +93,11 @@ export class ShoppingCartService {
     return await this.http.get(this.url + cartId).toPromise();
   }
 
-  cartExists() {
-    return localStorage.getItem('cartId');
-  }
-
-  async getCart(): Promise<any> {
-
-    const cartId = localStorage.getItem('cartId');
-    let cart = null;
-    if (cartId) {
-      cart = await this.getCartFromAPI(cartId);
-    } else {
-      cart = await this.createCart();
-      localStorage.setItem('cartId', cart['id']);
-    }
-
-    this.currentCart = cart;
-    return this.currentCart;
-  }
-
-  async addToCart(product: Product) {
-    return await this.updateItemQuantity(product, 1);
-  }
-
-  async removeFromCart(product: Product) {
-    return await this.updateItemQuantity(product, -1);
-  }
-
   private async updateItemQuantity(product: Product, change: number) {
     let cart = await this.getCart();
     const cartItem = await this.getShoppingCartItem(cart.id, product.id);
 
     if (cartItem) {
-      console.log(cart);
-      console.log(cartItem);
       if (change == -1 && cartItem.quantity == 0) {
         this.currentCart = cart;
         return this.currentCart;
@@ -105,10 +112,10 @@ export class ShoppingCartService {
 
     } else {
       cart = await this.createShoppingCartItem(cart.id, {quantity: 1, productId: product.id});
-      console.log(cart);
     }
 
     this.currentCart = cart;
     return this.currentCart;
   }
+
 }

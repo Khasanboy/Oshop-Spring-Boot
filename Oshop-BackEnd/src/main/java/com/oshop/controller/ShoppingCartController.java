@@ -29,11 +29,11 @@ public class ShoppingCartController {
 
 	@Autowired
 	ShoppingCartService shoppingCartService;
-	
+
 	@Autowired
 	ShoppingCartItemService shoppingCartItemService;
-	
-	@Autowired 
+
+	@Autowired
 	ProductService productService;
 
 	@GetMapping("/{id}")
@@ -66,39 +66,41 @@ public class ShoppingCartController {
 	}
 
 	@GetMapping("/{cartId}/items/{productId}")
-	public CreateShoppingCartItemRequest getShoppingCartItem(@PathVariable("cartId") Long cartId, @PathVariable("productId") Long productId) {
+	public CreateShoppingCartItemRequest getShoppingCartItem(@PathVariable("cartId") Long cartId,
+			@PathVariable("productId") Long productId) {
 		Set<ShoppingCartItem> items = this.shoppingCartService.getById(cartId).orElse(null).getItems();
 		for (ShoppingCartItem cartItem : items) {
 			if (cartItem.getProduct().getId() == productId) {
-				return new CreateShoppingCartItemRequest(cartItem.getId(), cartItem.getQuantity(), cartItem.getProduct().getId());
+				return new CreateShoppingCartItemRequest(cartItem.getId(), cartItem.getQuantity(),
+						cartItem.getProduct().getId());
 			}
 		}
 
 		return null;
 	}
-	
+
 	@PostMapping("/{cartId}/items")
-	public ShoppingCart createShoppingCartItem(@PathVariable Long cartId, @RequestBody CreateShoppingCartItemRequest request) {
+	public ShoppingCart createShoppingCartItem(@PathVariable Long cartId,
+			@RequestBody CreateShoppingCartItemRequest request) {
 		Product product = this.productService.getProductById(request.getProductId()).orElse(null);
 		ShoppingCartItem result;
-		if(product!= null) {
+		if (product != null) {
 			ShoppingCartItem item = new ShoppingCartItem();
 			item.setQuantity(request.getQuantity());
 			item.setProduct(product);
 			result = this.shoppingCartItemService.addShoppingCartItem(item);
-			ShoppingCart cart = this.shoppingCartService.getById(cartId).get().addItem(result);	
+			ShoppingCart cart = this.shoppingCartService.getById(cartId).get().addItem(result);
 			return this.shoppingCartService.updateShoppingCart(cart);
 		}
-		
+
 		return null;
 	}
-	
 
 	@PutMapping("/{cartId}/items/{productId}")
 	public ShoppingCart updateShoppingCartItem(@PathVariable Long cartId, @PathVariable Long productId,
 			@RequestBody CreateShoppingCartItemRequest request) {
 		Set<ShoppingCartItem> items = this.shoppingCartService.getById(cartId).get().getItems();
-		for(ShoppingCartItem item: items) {
+		for (ShoppingCartItem item : items) {
 			if (item.getProduct().getId() == productId) {
 				item.setQuantity(request.getQuantity());
 				this.shoppingCartItemService.updateShoppingCartItem(item);
@@ -107,21 +109,38 @@ public class ShoppingCartController {
 
 		return this.shoppingCartService.getById(cartId).get();
 	}
-	
+
 	@DeleteMapping("/{cartId}/items/{productId}")
 	public ShoppingCart deleteShoppingCartItem(@PathVariable Long cartId, @PathVariable Long productId) {
 		ShoppingCart cart = this.shoppingCartService.getById(cartId).get();
-		Set<ShoppingCartItem> items = cart.getItems();
-		for(ShoppingCartItem item: items) {
-			if(item.getProduct().getId() == productId) {
-				cart.removeItem(item.getId());
-				this.shoppingCartItemService.deleteShoppingCartItem(item.getId());
-				return this.shoppingCartService.updateShoppingCart(cart);
+		if (cart != null) {
+			Set<ShoppingCartItem> items = cart.getItems();
+			for (ShoppingCartItem item : items) {
+				if (item.getProduct().getId() == productId) {
+					cart = cart.removeItem(item);
+					if (this.shoppingCartItemService.getById(item.getId()) != null)
+						this.shoppingCartItemService.deleteShoppingCartItem(item.getId());
+				}
 			}
 		}
-		
-		return null;
+
+		return this.shoppingCartService.updateShoppingCart(cart);
+
 	}
-	
-	
+
+	@DeleteMapping("/{cartId}/clear")
+	public ShoppingCart clearShoppingCart(@PathVariable Long cartId) {
+		ShoppingCart cart = this.shoppingCartService.getById(cartId).get();
+		if (cart != null) {
+			Set<ShoppingCartItem> items = cart.getItems();
+			cart = cart.removeAllItems();
+
+			for (ShoppingCartItem item : items) {
+				this.shoppingCartItemService.deleteShoppingCartItem(item.getId());
+			}
+		}
+
+		return this.shoppingCartService.updateShoppingCart(cart);
+	}
+
 }

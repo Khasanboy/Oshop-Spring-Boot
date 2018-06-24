@@ -12,7 +12,7 @@ import { ShoppingCartItem } from '../../models/shopping-cart-item';
 export class ProductCardComponent implements OnInit {
   @Input('product') product: Product;
   @Input('show-actions') showActions = true;
-  @Input('shopping-cart') shoppingCart;
+  @Input('shopping-cart') shoppingCart: ShoppingCart;
   @Output() cartChangedEvent = new EventEmitter();
 
   constructor(private shoppingCartService: ShoppingCartService) {}
@@ -24,21 +24,9 @@ export class ProductCardComponent implements OnInit {
     this.cartChangedEvent.emit(cart);
   }
 
-  async removeFromCart() {
-    const cart = await this.shoppingCartService.removeFromCart(this.product);
-    this.cartChangedEvent.emit(cart);
+  cartChanged(card: ShoppingCart) {
+    console.log(card);
+    this.cartChangedEvent.emit(card);
   }
 
-  getQuantity() {
-    if (!this.shoppingCart) {
-      return 0;
-    } else {
-      for (let i = 0; i < this.shoppingCart.items.length; i++) {
-        if (this.shoppingCart.items[i].product.id == this.product.id) {
-          return this.shoppingCart.items[i].quantity;
-        }
-      }
-      return 0;
-    }
-  }
 }
