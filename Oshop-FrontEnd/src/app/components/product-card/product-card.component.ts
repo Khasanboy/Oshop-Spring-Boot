@@ -25,7 +25,6 @@ export class ProductCardComponent implements OnInit {
   }
 
   cartChanged(card: ShoppingCart) {
-    console.log(card);
     this.cartChangedEvent.emit(card);
   }
 

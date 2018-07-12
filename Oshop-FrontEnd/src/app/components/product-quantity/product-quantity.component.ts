@@ -8,7 +8,6 @@ import { ShoppingCartService } from '../../services/shopping-cart.service';
   styleUrls: ['./product-quantity.component.css']
 })
 export class ProductQuantityComponent implements OnInit {
-
   @Input('product') product: Product;
   @Input('shopping-cart') shoppingCart;
   @Output() cartChangedEvent = new EventEmitter();
@@ -23,8 +22,10 @@ export class ProductQuantityComponent implements OnInit {
   }
 
   async removeFromCart() {
-    const cart = await this.shoppingCartService.removeFromCart(this.product);
-    this.cartChangedEvent.emit(cart);
+    const card = await this.shoppingCartService.getCart();
+    if (card.getQuantity(this.product) > 0) {
+      const cart = await this.shoppingCartService.removeFromCart(this.product);
+      this.cartChangedEvent.emit(cart);
+    }
   }
-
 }

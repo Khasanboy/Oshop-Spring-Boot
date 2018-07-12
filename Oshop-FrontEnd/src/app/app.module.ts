@@ -34,6 +34,8 @@ import { ProductFilterComponent } from './components/products/product-filter/pro
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
+import { DebounceClickDirective } from './directives/debounce-click.directive';
+import { OrderService } from './services/order.service';
 
 
 @NgModule({
@@ -54,7 +56,8 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    DebounceClickDirective
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,15 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
     FlashMessagesModule.forRoot(),
     DataTableModule.forRoot()
   ],
-  providers: [AuthService, UserService, AuthGuardService, AdminAuthGuardService, CategoryService, ProductService, ShoppingCartService,
+  providers: [
+    AuthService,
+    UserService,
+    AuthGuardService,
+    AdminAuthGuardService,
+    CategoryService,
+    ProductService,
+    ShoppingCartService,
+    OrderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

@@ -3,6 +3,7 @@ package com.oshop.controller;
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -115,13 +116,12 @@ public class ShoppingCartController {
 		ShoppingCart cart = this.shoppingCartService.getById(cartId).get();
 		if (cart != null) {
 			Set<ShoppingCartItem> items = cart.getItems();
-			for (ShoppingCartItem item : items) {
-				if (item.getProduct().getId() == productId) {
+			List<ShoppingCartItem> curItems = items.stream().filter(item->item.getProduct().getId().equals(productId)).collect(Collectors.toList());
+			
+			for (ShoppingCartItem item : curItems) {
 					cart = cart.removeItem(item);
-					if (this.shoppingCartItemService.getById(item.getId()) != null)
-						this.shoppingCartItemService.deleteShoppingCartItem(item.getId());
+					this.shoppingCartItemService.deleteShoppingCartItem(item.getId());
 				}
-			}
 		}
 
 		return this.shoppingCartService.updateShoppingCart(cart);

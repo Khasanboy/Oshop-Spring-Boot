@@ -7,7 +7,8 @@
   <div class="card-footer" *ngIf="showActions && shoppingCart">
       <button 
       *ngIf="shoppingCart.getQuantity(product) == 0; else updateQuantity"
-      (click)="addToCart()" 
+      appDebounceClick
+      (debounceClickEvent)="addToCart()" 
       class="btn btn-secondary btn-block">Add to Cart</button>
       <ng-template #updateQuantity>
        <app-product-quantity (cartChangedEvent)="cartChanged($event)" [product]="product" [shopping-cart]="shoppingCart"></app-product-quantity>

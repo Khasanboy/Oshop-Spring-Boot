@@ -8,11 +8,10 @@ export class ShoppingCartItem {
     constructor(id: number, quantity: number, product: Product) {
         this.id = id;
         this.quantity = quantity;
-        this.product = product;
+        this.product =  new Product(product.id, product.title, product.price, product.category, product.imgUrl);
     }
 
     get totalPrice() {
-        console.log(this.quantity * this.product.price);
         return this.quantity * this.product.price;
     }
 }

@@ -5,9 +5,11 @@ export class ShoppingCart {
   id: number;
   items: ShoppingCartItem[] = [];
 
-  constructor(id, items) {
+  constructor(id, items: ShoppingCartItem[]) {
     this.id = id;
-    this.items = items;
+    for (const item of items) {
+      this.items.push(new ShoppingCartItem(item.id, item.quantity, item.product));
+    }
   }
 
   get quantityOfItems() {

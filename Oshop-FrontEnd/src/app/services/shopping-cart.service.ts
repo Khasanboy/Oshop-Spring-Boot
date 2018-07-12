@@ -17,15 +17,7 @@ export class ShoppingCartService {
   }
 
   set currentCart(cart) {
-    const cartItems: ShoppingCartItem[] = [];
-
-    for (const item of cart.items) {
-      const cartItem = new ShoppingCartItem(item.id, item.quantity, item.product);
-      cartItems.push(cartItem);
-    }
-
-    const newCart = new ShoppingCart(cart.id, cartItems);
-    this._currentCart = newCart;
+    this._currentCart = new ShoppingCart(cart.id, cart.items);
   }
 
   constructor(private http: HttpClient) {}
@@ -98,10 +90,7 @@ export class ShoppingCartService {
     const cartItem = await this.getShoppingCartItem(cart.id, product.id);
 
     if (cartItem) {
-      if (change == -1 && cartItem.quantity == 0) {
-        this.currentCart = cart;
-        return this.currentCart;
-      } else if ( change == -1 && cartItem.quantity == 1) {
+      if ( change == -1 && cartItem.quantity <= 1) {
         cart = await this.deleteShoppingCartItem(cart.id, product.id);
         this.currentCart = cart;
         return this.currentCart;
