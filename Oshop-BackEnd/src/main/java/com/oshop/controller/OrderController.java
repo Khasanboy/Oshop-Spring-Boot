@@ -38,17 +38,16 @@ public class OrderController {
 	}
 	
 	@PostMapping("/")
-	public void createOrder(@RequestBody CreateOrderRequest orderRequest) {
+	public Order createOrder(@RequestBody CreateOrderRequest orderRequest) {
+		User user = this.userRepository.findById(orderRequest.getUserId()).orElse(null);
+		Shipping shipping = new Shipping(orderRequest.getShipping().getName(), orderRequest.getShipping().getLine1(), orderRequest.getShipping().getLine2(), orderRequest.getShipping().getCity());
+		
 		Order order = new Order();
 		order.setItems(orderRequest.getItems());
 		order.setDatePlaced(new Date());
-		order.setShipping(new Shipping(orderRequest.getShipping().getName(), orderRequest.getShipping().getLine1(), orderRequest.getShipping().getLine2(), orderRequest.getShipping().getCity()));
-		
-		User user = this.userRepository.findById(orderRequest.getUserId()).orElse(null);
-		if(user != null) {
-			order.setUser(user);		
-			this.orderService.addOrder(order);
-		}
+		order.setShipping(shipping);
+		order.setUser(user);		
+		return this.orderService.addOrder(order);
 		
 	}
 	

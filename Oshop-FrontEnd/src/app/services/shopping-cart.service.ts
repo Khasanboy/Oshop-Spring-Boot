@@ -51,7 +51,6 @@ export class ShoppingCartService {
   async clearCart() {
     const cart = await this.getCart();
     this.currentCart = await this.clearShoppingCart(cart.id);
-
   }
 
   private async clearShoppingCart(cartId): Promise<any> {

@@ -34,6 +34,5 @@
       </tr>
     </tfoot>
   </table>
-  <a class="btn btn-primary" *ngIf="shoppingCartService.currentCart.items.length" routerLink="/check-out">Checkout</a>
-  
+  <button class="btn btn-primary" *ngIf="shoppingCartService.currentCart.items.length" (click)="checkout()">Checkout</button>
 </div>

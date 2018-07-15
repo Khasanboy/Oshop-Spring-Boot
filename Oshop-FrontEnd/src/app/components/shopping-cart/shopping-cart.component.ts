@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ShoppingCart } from '../../models/shopping-cart';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,7 +12,7 @@ import { ShoppingCart } from '../../models/shopping-cart';
 export class ShoppingCartComponent implements OnInit {
    cart: ShoppingCart = null;
 
-  constructor(public shoppingCartService: ShoppingCartService) {}
+  constructor(public shoppingCartService: ShoppingCartService, private router: Router, private authService: AuthService) {}
 
   async ngOnInit() {
     if (this.shoppingCartService.cartExists()) {
@@ -20,6 +22,13 @@ export class ShoppingCartComponent implements OnInit {
 
    async clearCart() {
     await this.shoppingCartService.clearCart();
-    console.log(this.shoppingCartService.currentCart.items);
+  }
+
+  checkout() {
+    if (this.authService.currentUser) {
+      this.router.navigate(['/checkout']);
+    } else {
+      this.router.navigate(['/login', { queryParams: { returnUrl: '/checkout' } }]);
+    }
   }
 }

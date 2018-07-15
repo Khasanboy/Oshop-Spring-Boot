@@ -11,7 +11,7 @@ export class ProductFilterComponent implements OnInit {
   @Input('category') category;
   categories$;
 
-  constructor(private categoryService: CategoryService) { 
+  constructor(private categoryService: CategoryService) {
 
     this.categories$ = this.categoryService.getAllCategories();
 
