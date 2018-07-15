@@ -12,7 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -34,22 +37,33 @@ public class Order implements Serializable {
 	private Long id;
 	
 	private Date datePlaced;
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinTable(name="order_user",
+			joinColumns=@JoinColumn(name="order_id"),
+			inverseJoinColumns = @JoinColumn(name="user_id")
+			)
+	private User user;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="order_items",
 			joinColumns = @JoinColumn(name ="order_id"),
 			inverseJoinColumns = @JoinColumn(name = "item_id"))
 	private Set<ShoppingCartItem> items = new HashSet<>();
+	
+	private Shipping shipping;
 
 	public Order() {
 		super();
 	}
 
-	public Order(Long id, Date datePlaced, Set<ShoppingCartItem> items) {
+	public Order(Long id, Date datePlaced, User user, Set<ShoppingCartItem> items, Shipping shipping) {
 		super();
 		this.id = id;
 		this.datePlaced = datePlaced;
+		this.user = user;
 		this.items = items;
+		this.shipping = shipping;
 	}
 
 	public Long getId() {
@@ -68,12 +82,28 @@ public class Order implements Serializable {
 		this.datePlaced = datePlaced;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public Set<ShoppingCartItem> getItems() {
 		return items;
 	}
 
 	public void setItems(Set<ShoppingCartItem> items) {
 		this.items = items;
-	}	
+	}
+
+	public Shipping getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(Shipping shipping) {
+		this.shipping = shipping;
+	}
 
 }

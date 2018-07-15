@@ -20,5 +20,6 @@ export class ShoppingCartComponent implements OnInit {
 
    async clearCart() {
     await this.shoppingCartService.clearCart();
+    console.log(this.shoppingCartService.currentCart.items);
   }
 }

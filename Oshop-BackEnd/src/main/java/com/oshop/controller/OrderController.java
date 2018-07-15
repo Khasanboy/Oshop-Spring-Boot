@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oshop.model.Order;
+import com.oshop.model.Shipping;
+import com.oshop.model.User;
+import com.oshop.payload.CreateOrderRequest;
+import com.oshop.repository.UserRepository;
 import com.oshop.service.OrderService;
 
 @RestController
@@ -20,6 +24,8 @@ import com.oshop.service.OrderService;
 public class OrderController {
 	
 	@Autowired OrderService orderService;
+	
+	@Autowired UserRepository userRepository;
 	
 	@GetMapping("/{id}")
 	public Order getOrderById(@PathVariable Long id) {
@@ -32,12 +38,18 @@ public class OrderController {
 	}
 	
 	@PostMapping("/")
-	public void createOrder(@RequestBody Order order) {
-		Order ord = new Order();
-		ord.setItems(order.getItems());
-		ord.setDatePlaced(new Date());
+	public void createOrder(@RequestBody CreateOrderRequest orderRequest) {
+		Order order = new Order();
+		order.setItems(orderRequest.getItems());
+		order.setDatePlaced(new Date());
+		order.setShipping(new Shipping(orderRequest.getShipping().getName(), orderRequest.getShipping().getLine1(), orderRequest.getShipping().getLine2(), orderRequest.getShipping().getCity()));
 		
-		this.orderService.addOrder(order);
+		User user = this.userRepository.findById(orderRequest.getUserId()).orElse(null);
+		if(user != null) {
+			order.setUser(user);		
+			this.orderService.addOrder(order);
+		}
+		
 	}
 	
 	@DeleteMapping("/{id}")
