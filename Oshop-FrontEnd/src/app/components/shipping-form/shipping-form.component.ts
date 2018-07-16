@@ -14,29 +14,35 @@ import { User } from '../../models/user';
 export class ShippingFormComponent implements OnInit {
   @Input() cart;
 
-  user: User;
-
   shipping: Shipping = new Shipping();
   constructor(
     private authService: AuthService,
     private orderService: OrderService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    this.user = this.authService.currentUser;
-  }
+  ngOnInit() {}
 
   checkout() {
-    const order = new Order(this.user.id, this.shipping, this.cart);
-    this.orderService.createOrder(order).subscribe(
-      (data: Order) => {
-        console.log(data);
-        this.router.navigate(['/order-success', data.id]);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
+    if (!this.authService.currentUser) {
+      this.authService.getCurrentUser();
+    }
 
+    if (this.authService.currentUser) {
+      const order = new Order(
+        this.authService.currentUser.id,
+        this.shipping,
+        this.cart
+      );
+      this.orderService.createOrder(order).subscribe(
+        (data: Order) => {
+          console.log(data);
+          this.router.navigate(['/order-success', data.id]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
 }

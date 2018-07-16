@@ -25,10 +25,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout() {
-    if (this.authService.currentUser) {
-      this.router.navigate(['/checkout']);
-    } else {
-      this.router.navigate(['/login', { queryParams: { returnUrl: '/checkout' } }]);
-    }
+      this.router.navigate(['/check-out']);
   }
 }

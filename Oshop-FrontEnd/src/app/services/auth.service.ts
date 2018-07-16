@@ -21,11 +21,8 @@ export class AuthService {
   }
 
   login(body: any) {
-
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-    console.log(returnUrl);
     localStorage.setItem('returnUrl', returnUrl);
-
     return this.http.post(this._loginUrl, body);
   }
 
