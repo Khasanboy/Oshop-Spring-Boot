@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OrderService } from '../../services/order.service';
+import { OrderService } from '@shared/services/order.service';
 import { Router } from '../../../../node_modules/@angular/router';
-import { Order } from '../../models/order';
-import { Shipping } from '../../models/shipping';
-import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
+import { Order } from '@shared/models/order';
+import { Shipping } from '@shared/models/shipping';
+import { AuthService } from '@shared/services/auth.service';
+import { User } from '@shared/models/user';
+import { ShoppingCart } from '@shared/models/shopping-cart';
 
 @Component({
   selector: 'app-shipping-form',
@@ -12,7 +13,7 @@ import { User } from '../../models/user';
   styleUrls: ['./shipping-form.component.css']
 })
 export class ShippingFormComponent implements OnInit {
-  @Input() cart;
+  @Input() cart: ShoppingCart;
 
   shipping: Shipping = new Shipping();
   constructor(

@@ -11,6 +11,8 @@ public interface OrderService {
 	
 	public Optional<Order> getOrderById(Long id);
 	
+	public List<Order> getOrdersByUserId(Long id);
+	
 	public Order addOrder(Order order);
 	
 	public void deleteOrder(Long id);

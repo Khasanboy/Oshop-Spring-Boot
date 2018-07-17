@@ -1,6 +1,6 @@
-import { UserService } from './../../services/user.service';
+import { UserService } from '@shared/services/user.service';
 import { Router } from '@angular/router';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '@shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
 

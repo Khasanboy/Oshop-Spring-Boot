@@ -1,10 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { Product } from '../../models/product';
+import { ProductService } from '@shared/services/product.service';
+import { Product } from '@shared/models/product';
 import 'rxjs/add/operator/switchMap';
-import { ShoppingCartService } from '../../services/shopping-cart.service';
-import { ShoppingCart } from '../../models/shopping-cart';
+import { ShoppingCartService } from '@shared/services/shopping-cart.service';
+import { ShoppingCart } from '@shared/models/shopping-cart';
 
 @Component({
   selector: 'app-products',

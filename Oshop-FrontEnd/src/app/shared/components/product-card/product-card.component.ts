@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../models/product';
-import { ShoppingCartService } from '../../services/shopping-cart.service';
-import { ShoppingCart } from '../../models/shopping-cart';
-import { ShoppingCartItem } from '../../models/shopping-cart-item';
+import { Product } from '@shared/models/product';
+import { ShoppingCartService } from '@shared/services/shopping-cart.service';
+import { ShoppingCart } from '@shared/models/shopping-cart';
 
 @Component({
   selector: 'app-product-card',

@@ -1,6 +1,6 @@
-import { ProductService } from './../../../services/product.service';
+import { ProductService } from '@shared/services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../../models/product';
+import { Product } from '@shared/models/product';
 import { DataTableResource } from 'angular5-data-table';
 
 @Component({

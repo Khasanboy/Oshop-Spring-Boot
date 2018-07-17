@@ -1,9 +1,9 @@
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '@shared/services/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { isNullOrUndefined } from 'util';
-import { ShoppingCartService } from '../../services/shopping-cart.service';
-import { ShoppingCart } from '../../models/shopping-cart';
+import { ShoppingCartService } from '@shared/services/shopping-cart.service';
+import { ShoppingCart } from '@shared/models/shopping-cart';
 
 @Component({
   selector: 'app-navbar',

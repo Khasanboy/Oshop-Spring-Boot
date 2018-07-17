@@ -1,5 +1,5 @@
-import { ShoppingCartItem } from './shopping-cart-item';
-import { Product } from './product';
+import { ShoppingCartItem } from '@shared/models/shopping-cart-item';
+import { Product } from '@shared/models/product';
 
 export class ShoppingCart {
   id: number;

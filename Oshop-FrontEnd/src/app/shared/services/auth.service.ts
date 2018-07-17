@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { User } from './../models/user';
+import { User } from '@shared/models/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 

@@ -27,8 +27,14 @@ public class OrderController {
 	
 	@Autowired UserRepository userRepository;
 	
+	@GetMapping("/user/{id}")
+	public List<Order> getOrdersByUserId(@PathVariable Long id){
+		return this.orderService.getOrdersByUserId(id);
+	}
+	
 	@GetMapping("/{id}")
 	public Order getOrderById(@PathVariable Long id) {
+		System.out.println(id);
 		return this.orderService.getOrderById(id).orElse(null);
 	}
 	

@@ -24,6 +24,11 @@ public class OrderServiceImpl implements OrderService {
 	public Optional<Order> getOrderById(Long id) {
 		return this.orderRepository.findById(id);
 	}
+	
+	@Override
+	public List<Order> getOrdersByUserId(Long id) {
+		return this.orderRepository.getOrderByUserId(id);
+	}
 
 	@Override
 	public Order addOrder(Order order) {
@@ -39,5 +44,6 @@ public class OrderServiceImpl implements OrderService {
 	public void updateOrder(Order order) {
 		this.orderRepository.save(order);
 	}
+
 
 }

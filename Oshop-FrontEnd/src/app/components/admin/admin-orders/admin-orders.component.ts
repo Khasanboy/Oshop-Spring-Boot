@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from '@shared/models/order';
+import { OrderService } from '@shared/services/order.service';
 
 @Component({
   selector: 'app-admin-orders',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminOrdersComponent implements OnInit {
 
-  constructor() { }
+  orders: Order[] = [];
+
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+    this.orderService.getAllOrders().subscribe(
+      (data: Order[]) => {
+        this.orders = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

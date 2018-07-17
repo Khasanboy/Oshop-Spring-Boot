@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product } from '../models/product';
-import { ShoppingCartItem } from '../models/shopping-cart-item';
-import { ShoppingCart } from '../models/shopping-cart';
+import { Product } from '@shared/models/product';
+import { ShoppingCartItem } from '@shared/models/shopping-cart-item';
+import { ShoppingCart } from '@shared/models/shopping-cart';
 
 
 @Injectable({
