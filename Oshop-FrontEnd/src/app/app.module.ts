@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminAuthGuardService } from '@shared/services/admin-auth-guard.service';
 import { TokenInterceptorService } from '@shared/services/token-interceptor.service';
+import { SharedModule } from '@shared/shared.module';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DataTableModule } from 'angular5-data-table';
 import { CustomFormsModule } from 'ng2-validation';
@@ -27,9 +28,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
 import { ShoppingCartSummaryComponent } from './components/shopping-cart-summary/shopping-cart-summary.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { DebounceClickDirective } from './directives/debounce-click.directive';
 import { EmailValidatorDirective } from './directives/email-validator.directive';
-import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import { SharedModule } from '@shared/shared.module';
     EmailValidatorDirective,
     ProductFormComponent,
     ProductFilterComponent,
-    DebounceClickDirective,
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
     OrderDetailsComponent

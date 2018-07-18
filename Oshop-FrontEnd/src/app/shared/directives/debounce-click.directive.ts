@@ -17,7 +17,9 @@ export class DebounceClickDirective implements OnDestroy, OnInit {
     this.subscription = this.clicks.pipe(
       debounceTime(300)
     ).subscribe(
-      event => this.debounceClickEvent.emit(event)
+      event => {
+        this.debounceClickEvent.emit(event);
+      }
     );
   }
 

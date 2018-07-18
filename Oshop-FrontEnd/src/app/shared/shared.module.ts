@@ -9,6 +9,7 @@ import { OrderService } from '@shared/services/order.service';
 import { ProductService } from '@shared/services/product.service';
 import { ShoppingCartService } from '@shared/services/shopping-cart.service';
 import { UserService } from '@shared/services/user.service';
+import { DebounceClickDirective } from '@shared/directives/debounce-click.directive';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { UserService } from '@shared/services/user.service';
   ],
   declarations: [
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    DebounceClickDirective
   ],
   exports: [
     ProductCardComponent,
