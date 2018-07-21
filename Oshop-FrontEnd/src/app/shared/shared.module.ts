@@ -1,19 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '@membership/services/auth.service';
+import { UserService } from '@membership/services/user.service';
 import { ProductCardComponent } from '@shared/components/product-card/product-card.component';
 import { ProductQuantityComponent } from '@shared/components/product-quantity/product-quantity.component';
-import { AuthGuardService } from '@shared/services/auth-guard.service';
-import { AuthService } from '@shared/services/auth.service';
-import { CategoryService } from '@shared/services/category.service';
-import { OrderService } from '@shared/services/order.service';
-import { ProductService } from '@shared/services/product.service';
-import { ShoppingCartService } from '@shared/services/shopping-cart.service';
-import { UserService } from '@shared/services/user.service';
 import { DebounceClickDirective } from '@shared/directives/debounce-click.directive';
+import { AuthGuardService } from '@shared/services/auth-guard.service';
+import { CategoryService } from '@shopping/services/category.service';
+import { OrderService } from '@shopping/services/order.service';
+import { ProductService } from '@shopping/services/product.service';
+import { ShoppingCartService } from '@shopping/services/shopping-cart.service';
+import { DataTableModule } from 'angular5-data-table';
+
+import { RouterModule } from '../../../node_modules/@angular/router';
+import { CustomFormsModule } from '../../../node_modules/ng2-validation';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    DataTableModule.forRoot(),
+    RouterModule
   ],
   declarations: [
     ProductCardComponent,
@@ -22,7 +30,12 @@ import { DebounceClickDirective } from '@shared/directives/debounce-click.direct
   ],
   exports: [
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    CommonModule,
+    FormsModule,
+    DataTableModule,
+    CustomFormsModule,
+    RouterModule
   ],
   providers: [
     AuthGuardService,
