@@ -55,28 +55,22 @@
         <h6 class="error-text"
           *ngIf="category.errors.required">Category is required</h6>
       </div>
-      
-      <!--
-        <div class="form-group">
+      <div class="form-group">
         <label for="imageUrl">Image URL</label>
         <input id="imageUrl"
-          type="text"
+          type="file"
           class="form-control"
-          #imageUrl="ngModel"
-          [(ngModel)]="product.imageUrl"
+          (change)="onFileSelected($event)"
           name="imageUrl"
-          required
-          url>
+          required>
+        <!-- [(ngModel)]="product.imageUrl" #imageUrl="ngModel"  url> -->
       </div>
-       <div *ngIf="imageUrl.touched && imageUrl.invalid">
-        <h6 class="error-text"
-          *ngIf="imageUrl.errors.required">Image URL is required</h6>
-        <h6 class="error-text"
-          *ngIf="imageUrl.errors.url">Please enter a valid URL</h6>
+      <!--
+        <div *ngIf="imageUrl.touched && imageUrl.invalid">
+        <h6 class="error-text" *ngIf="imageUrl.errors.required">Image URL is required</h6>
+        <h6 class="error-text" *ngIf="imageUrl.errors.url">Please enter a valid URL</h6>
       </div>
-
       -->
-     
       <button class="btn btn-primary"
         type="submit"
         [disabled]="f.invalid">Save</button>
@@ -87,7 +81,17 @@
     </form>
   </div>
   <div class="col-md-6">
-    <app-product-card [product]="product"
-      [show-actions]="false"></app-product-card>
+    <div class="card">
+      <img class="card-img-top"
+        id="selectedImage"
+        width="300px"
+        height="300px"
+        [src]="url"
+        alt="{{product.title}}">
+      <div class="card-body">
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{product.price | currency:'USD':'symbol'}}</p>
+      </div>
+    </div>
+
   </div>
-</div>

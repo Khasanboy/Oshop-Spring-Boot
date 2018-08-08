@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,22 +28,25 @@ public class OrderController {
 	
 	@Autowired UserRepository userRepository;
 	
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@GetMapping("/user/{id}")
 	public List<Order> getOrdersByUserId(@PathVariable Long id){
 		return this.orderService.getOrdersByUserId(id);
 	}
 	
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@GetMapping("/{id}")
 	public Order getOrderById(@PathVariable Long id) {
-		System.out.println(id);
 		return this.orderService.getOrderById(id).orElse(null);
 	}
 	
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@GetMapping("/")
 	public List<Order> getAllOrders() {
 		return this.orderService.getAllOrders();
 	}
 	
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@PostMapping("/")
 	public Order createOrder(@RequestBody CreateOrderRequest orderRequest) {
 		User user = this.userRepository.findById(orderRequest.getUserId()).orElse(null);
@@ -57,6 +61,7 @@ public class OrderController {
 		
 	}
 	
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public void deleteOrder(@PathVariable Long id) {
 		this.orderService.deleteOrder(id);

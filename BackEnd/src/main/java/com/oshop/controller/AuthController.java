@@ -54,8 +54,6 @@ public class AuthController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
 		
-		System.out.println("I am coming to login");
-		
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						loginRequest.getEmail(),
@@ -73,10 +71,7 @@ public class AuthController {
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/signup")
-	public  ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
-		
-		System.out.println("came "+ signUpRequest);
-		
+	public  ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){		
 		
 		if(userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);

@@ -1,19 +1,20 @@
-import { ProductFormComponent } from './admin/components/product-form/product-form.component';
-import { AdminAuthGuardService } from './admin/services/admin-auth-guard.service';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from '@membership/components/login/login.component';
+import { RegisterComponent } from '@membership/components/register/register.component';
 import { AuthGuardService } from '@shared/services/auth-guard.service';
-import { MyOrdersComponent } from './shopping/components/my-orders/my-orders.component';
+
 import { AdminOrdersComponent } from './admin/components/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './admin/components/admin-products/admin-products.component';
-import { LoginComponent } from '@membership/components/login/login.component';
-import { OrderSuccessComponent } from './shopping/components/order-success/order-success.component';
+import { ProductFormComponent } from './admin/components/product-form/product-form.component';
+import { AdminAuthGuardService } from './admin/services/admin-auth-guard.service';
 import { CheckOutComponent } from './shopping/components/check-out/check-out.component';
-import { ShoppingCartComponent } from './shopping/components/shopping-cart/shopping-cart.component';
-import { ProductsComponent } from './shopping/components/products/products.component';
-import { HomeComponent } from './core/components/home/home.component';
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from '@membership/components/register/register.component';
+import { MyOrdersComponent } from './shopping/components/my-orders/my-orders.component';
 import { OrderDetailsComponent } from './shopping/components/order-details/order-details.component';
+import { OrderSuccessComponent } from './shopping/components/order-success/order-success.component';
+import { ProductsComponent } from './shopping/components/products/products.component';
+import { ShoppingCartComponent } from './shopping/components/shopping-cart/shopping-cart.component';
+import { NewProductFormComponent } from '@admin/components/new-product-form/new-product-form.component';
 
 export const routes: Routes = [
   { path: '', component: ProductsComponent },
@@ -38,7 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/products/new',
-    component: ProductFormComponent,
+    component: NewProductFormComponent,
     canActivate: [AuthGuardService, AdminAuthGuardService]
   },
   {

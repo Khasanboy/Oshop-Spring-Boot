@@ -9,33 +9,29 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-
   categories;
   product = {};
   id;
 
-  constructor(private catergoryService: CategoryService,
+  constructor(
+    private catergoryService: CategoryService,
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute) {
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.catergoryService.getAllCategories().subscribe(
-      data => this.categories = data,
-      error => console.log(error)
-    );
+    this.catergoryService
+      .getAllCategories()
+      .subscribe(data => (this.categories = data), error => console.log(error));
 
     this.id = this.route.snapshot.paramMap.get('id');
 
     if (this.id) {
-      this.productService.getOneProductById(+this.id).subscribe(
-        data => this.product = data,
-        error => console.log(error)
-      );
+      this.productService
+        .getOneProductById(+this.id)
+        .subscribe(data => (this.product = data), error => console.log(error));
     }
-
-
   }
 
   addProduct(product) {
@@ -63,9 +59,8 @@ export class ProductFormComponent implements OnInit {
     this.productService.deleteProduct(this.id).subscribe(
       data => {
         this.router.navigate(['/admin/products']);
-    },
+      },
       error => console.log(error)
     );
   }
-
 }

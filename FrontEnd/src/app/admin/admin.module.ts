@@ -5,6 +5,7 @@ import { AdminAuthGuardService } from '@admin/services/admin-auth-guard.service'
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { DataTableModule } from '../../../node_modules/angular5-data-table';
+import { NewProductFormComponent } from './components/new-product-form/new-product-form.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DataTableModule } from '../../../node_modules/angular5-data-table';
     AdminProductsComponent,
     AdminOrdersComponent,
     ProductFormComponent,
+    NewProductFormComponent,
   ],
   providers: [
     AdminAuthGuardService,

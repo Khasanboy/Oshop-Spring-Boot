@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.NotBlank;
 
+
 public class CreateProductRequest {
 	
 	@NotBlank
@@ -14,9 +15,6 @@ public class CreateProductRequest {
 	
 	@NotBlank
 	private String category;
-	
-	@NotBlank
-	private String imageUrl;
 
 	public String getTitle() {
 		return title;
@@ -41,14 +39,5 @@ public class CreateProductRequest {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-	
 
 }
