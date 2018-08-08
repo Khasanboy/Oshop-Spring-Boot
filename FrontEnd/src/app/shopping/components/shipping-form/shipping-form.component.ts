@@ -24,10 +24,6 @@ export class ShippingFormComponent implements OnInit {
   ngOnInit() {}
 
   checkout() {
-    if (!this.authService.currentUser) {
-      this.authService.getCurrentUser();
-    }
-
     if (this.authService.currentUser) {
       const order = new Order(
         this.authService.currentUser.id,
@@ -37,6 +33,27 @@ export class ShippingFormComponent implements OnInit {
       this.orderService.createOrder(order).subscribe(
         (data: Order) => {
           this.router.navigate(['/order-success', data.id]);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      this.authService.getCurrentUser().subscribe(
+        user => {
+          const order = new Order(
+            this.authService.currentUser.id,
+            this.shipping,
+            this.cart
+          );
+          this.orderService.createOrder(order).subscribe(
+            (data: Order) => {
+              this.router.navigate(['/order-success', data.id]);
+            },
+            error => {
+              console.log(error);
+            }
+          );
         },
         error => {
           console.log(error);

@@ -8,13 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    if (this.authService.getToken()) {
+      this.authService.getCurrentUser().subscribe(
+        data => {},
+        error => {console.log(error); }
+      );
+    }
+  }
 
   ngOnInit() {
-
-    if (this.authService.getToken()) {
-      this.authService.getCurrentUser();
-    }
 
   }
 }

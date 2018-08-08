@@ -8,8 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  currentUser: any;
-
+  private _currentUser: any;
   private _registerUrl = 'api/auth/signup';
   private _loginUrl = 'api/auth/signin';
 
@@ -18,6 +17,14 @@ export class AuthService {
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
+  get currentUser() {
+    return this._currentUser;
+  }
+
+  set currentUser(user: any) {
+    this._currentUser = user;
+  }
 
   register(user: User) {
     return this.http.post(this._registerUrl, user);
@@ -34,14 +41,10 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    this.http.get('api/user/me').subscribe(
-      data => {
+   return this.http.get('api/user/me').pipe(
+      tap(data => {
         this.currentUser = data;
-      },
-      error => {
-        console.log(error);
-        this.currentUser = null;
-      }
+      })
     );
   }
 

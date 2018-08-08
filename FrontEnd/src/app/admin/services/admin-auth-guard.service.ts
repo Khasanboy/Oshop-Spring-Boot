@@ -2,6 +2,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '@membership/services/auth.service';
 import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,16 @@ export class AdminAuthGuardService implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private flashMessages: FlashMessagesService
+    private flashMessages: FlashMessagesService,
+    private jwtHelper: JwtHelperService
   ) {}
 
   canActivate() {
     if (this.authService.loggedIn()) {
+      const token = this.authService.getToken();
+      const decodedToken = this.jwtHelper.decodeToken(token);
       if (
-        this.authService.currentUser.roles.find(
+        decodedToken.userRoles.find(
           role => role.authority === 'ROLE_ADMIN'
         )
       ) {

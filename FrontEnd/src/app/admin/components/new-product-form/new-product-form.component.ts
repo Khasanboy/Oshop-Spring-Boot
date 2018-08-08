@@ -45,7 +45,6 @@ export class NewProductFormComponent implements OnInit {
      data.append('price', this.product['price']);
      data.append('categoryId', this.product['category']);
 
-      console.log(data);
       this.productService.createProduct(data).subscribe(
         returnedData => {
           this.router.navigate(['/admin/products']);

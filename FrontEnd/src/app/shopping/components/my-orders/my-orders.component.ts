@@ -17,7 +17,6 @@ export class MyOrdersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.getCurrentUser();
     if (this.authService.currentUser) {
       this.orderService
         .getOrdersByUserId(this.authService.currentUser.id)
@@ -29,6 +28,24 @@ export class MyOrdersComponent implements OnInit {
             console.log(error);
           }
         );
+    } else {
+      this.authService.getCurrentUser().subscribe(
+        user => {
+          this.orderService
+            .getOrdersByUserId(this.authService.currentUser.id)
+            .subscribe(
+              (orders: Order[]) => {
+                this.orders = orders;
+              },
+              error => {
+                console.log(error);
+              }
+            );
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 }

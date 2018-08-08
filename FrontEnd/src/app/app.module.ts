@@ -1,7 +1,8 @@
 import { AdminModule } from '@admin/admin.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { JwtModule } from '@auth0/angular-jwt';
 import { CoreModule } from '@core/core.module';
 import { MembershipModule } from '@membership/membership.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +10,6 @@ import { TokenInterceptorService } from '@shared/services/token-interceptor.serv
 import { SharedModule } from '@shared/shared.module';
 import { ShoppingModule } from '@shopping/shopping.module';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -28,7 +28,16 @@ import { AppComponent } from './app.component';
     AdminModule,
     ShoppingModule,
     CoreModule,
-    MembershipModule
+    MembershipModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('accessToken');
+        },
+        whitelistedDomains: [],
+        blacklistedRoutes: []
+      }
+    })
   ],
   providers: [
     {
