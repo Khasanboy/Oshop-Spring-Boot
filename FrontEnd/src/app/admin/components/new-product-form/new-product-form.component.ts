@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoryService } from '@shopping/services/category.service';
 import { ProductService } from '@shopping/services/product.service';
-import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-product-form',
@@ -9,7 +9,6 @@ import { Router} from '@angular/router';
   styleUrls: ['./new-product-form.component.css']
 })
 export class NewProductFormComponent implements OnInit {
-
   categories;
   product = {};
   selectedFile = null;
@@ -39,17 +38,17 @@ export class NewProductFormComponent implements OnInit {
   }
 
   addProduct(product) {
-     const data = new FormData();
-     data.append('file', this.selectedFile, this.selectedFile.name);
-     data.append('title', this.product['title']);
-     data.append('price', this.product['price']);
-     data.append('categoryId', this.product['category']);
+    const data = new FormData();
+    data.append('file', this.selectedFile, this.selectedFile.name);
+    data.append('title', this.product['title']);
+    data.append('price', this.product['price']);
+    data.append('categoryId', this.product['category']);
 
-      this.productService.createProduct(data).subscribe(
-        returnedData => {
-          this.router.navigate(['/admin/products']);
-        },
-        error => console.log(error)
-      );
+    this.productService.createProduct(data).subscribe(
+      returnedData => {
+        this.router.navigate(['/admin/products']);
+      },
+      error => console.log(error)
+    );
   }
 }

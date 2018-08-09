@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CategoryService } from '@shopping/services/category.service';
 
 @Component({
@@ -7,17 +7,12 @@ import { CategoryService } from '@shopping/services/category.service';
   styleUrls: ['./product-filter.component.css']
 })
 export class ProductFilterComponent implements OnInit {
-
   @Input('category') category;
   categories$;
 
   constructor(private categoryService: CategoryService) {
-
     this.categories$ = this.categoryService.getAllCategories();
-
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

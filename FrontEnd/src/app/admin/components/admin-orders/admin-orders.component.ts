@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '@shopping/services/order.service';
 import { Order } from '@shopping/models/order';
+import { OrderService } from '@shopping/services/order.service';
 
 @Component({
   selector: 'app-admin-orders',
@@ -8,10 +8,9 @@ import { Order } from '@shopping/models/order';
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
-
   orders: Order[] = [];
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService) {}
 
   ngOnInit() {
     this.orderService.getAllOrders().subscribe(
@@ -23,5 +22,4 @@ export class AdminOrdersComponent implements OnInit {
       }
     );
   }
-
 }

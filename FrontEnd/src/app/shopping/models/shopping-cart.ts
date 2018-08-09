@@ -1,5 +1,5 @@
-import { ShoppingCartItem } from './shopping-cart-item';
 import { Product } from './product';
+import { ShoppingCartItem } from './shopping-cart-item';
 
 export class ShoppingCart {
   id: number;
@@ -8,7 +8,9 @@ export class ShoppingCart {
   constructor(id, items: ShoppingCartItem[]) {
     this.id = id;
     for (const item of items) {
-      this.items.push(new ShoppingCartItem(item.id, item.quantity, item.product));
+      this.items.push(
+        new ShoppingCartItem(item.id, item.quantity, item.product)
+      );
     }
   }
 

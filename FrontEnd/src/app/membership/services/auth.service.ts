@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-   return this.http.get('api/user/me').pipe(
+    return this.http.get('api/user/me').pipe(
       tap(data => {
         this.currentUser = data;
       })

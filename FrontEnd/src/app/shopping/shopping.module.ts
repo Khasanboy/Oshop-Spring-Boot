@@ -1,8 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { AuthGuardService } from '@shared/services/auth-guard.service';
 import { SharedModule } from '@shared/shared.module';
 import { CheckOutComponent } from '@shopping/components/check-out/check-out.component';
 import { MyOrdersComponent } from '@shopping/components/my-orders/my-orders.component';
@@ -18,11 +14,8 @@ import { OrderService } from '@shopping/services/order.service';
 import { ProductService } from '@shopping/services/product.service';
 import { ShoppingCartService } from '@shopping/services/shopping-cart.service';
 
-
 @NgModule({
-  imports: [
-    SharedModule
-  ],
+  imports: [SharedModule],
   declarations: [
     CheckOutComponent,
     MyOrdersComponent,

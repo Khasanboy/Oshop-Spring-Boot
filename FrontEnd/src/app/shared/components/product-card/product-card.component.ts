@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '@shopping/models/product';
-import { ShoppingCartService } from '@shopping/services/shopping-cart.service';
 import { ShoppingCart } from '@shopping/models/shopping-cart';
+import { ShoppingCartService } from '@shopping/services/shopping-cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -26,5 +26,4 @@ export class ProductCardComponent implements OnInit {
   cartChanged(card: ShoppingCart) {
     this.cartChangedEvent.emit(card);
   }
-
 }

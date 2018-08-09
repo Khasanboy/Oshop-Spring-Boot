@@ -8,9 +8,11 @@
   </thead>
   <tbody *ngIf="orders">
     <tr *ngFor="let order of orders">
-    <td>{{order.user.name}}</td>
-    <td>{{order.datePlaced | date: 'longDate'}}</td>
-    <td><a routerLink="/order-details/{{order.id}}">View order</a></td>  
+      <td>{{order.user.name}}</td>
+      <td>{{order.datePlaced | date: 'longDate'}}</td>
+      <td>
+        <a routerLink="/order-details/{{order.id}}">View order</a>
+      </td>
     </tr>
   </tbody>
 </table>

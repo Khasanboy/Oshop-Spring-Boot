@@ -1,9 +1,9 @@
+import { NewProductFormComponent } from '@admin/components/new-product-form/new-product-form.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '@membership/components/login/login.component';
 import { RegisterComponent } from '@membership/components/register/register.component';
 import { AuthGuardService } from '@shared/services/auth-guard.service';
-
 import { AdminOrdersComponent } from './admin/components/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './admin/components/admin-products/admin-products.component';
 import { ProductFormComponent } from './admin/components/product-form/product-form.component';
@@ -14,7 +14,6 @@ import { OrderDetailsComponent } from './shopping/components/order-details/order
 import { OrderSuccessComponent } from './shopping/components/order-success/order-success.component';
 import { ProductsComponent } from './shopping/components/products/products.component';
 import { ShoppingCartComponent } from './shopping/components/shopping-cart/shopping-cart.component';
-import { NewProductFormComponent } from '@admin/components/new-product-form/new-product-form.component';
 
 export const routes: Routes = [
   { path: '', component: ProductsComponent },

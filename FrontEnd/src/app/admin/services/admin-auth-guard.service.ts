@@ -1,8 +1,8 @@
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthService } from '@membership/services/auth.service';
-import { CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from '@membership/services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Injectable({
   providedIn: 'root'

@@ -13,16 +13,11 @@ import { ProductService } from '@shopping/services/product.service';
 import { ShoppingCartService } from '@shopping/services/shopping-cart.service';
 import { DataTableModule } from 'angular5-data-table';
 
-import { RouterModule } from '../../../node_modules/@angular/router';
-import { CustomFormsModule } from '../../../node_modules/ng2-validation';
+import { RouterModule } from '@angular/router';
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    DataTableModule.forRoot(),
-    RouterModule
-  ],
+  imports: [CommonModule, FormsModule, DataTableModule.forRoot(), RouterModule],
   declarations: [
     ProductCardComponent,
     ProductQuantityComponent,
@@ -47,4 +42,4 @@ import { CustomFormsModule } from '../../../node_modules/ng2-validation';
     OrderService
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

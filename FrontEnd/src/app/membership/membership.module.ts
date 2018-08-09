@@ -7,17 +7,8 @@ import { UserService } from '@membership/services/user.service';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
-  imports: [
-   SharedModule
-  ],
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    EmailValidatorDirective
-  ],
-  providers: [
-    AuthService,
-    UserService
-  ]
+  imports: [SharedModule],
+  declarations: [LoginComponent, RegisterComponent, EmailValidatorDirective],
+  providers: [AuthService, UserService]
 })
 export class MembershipModule {}

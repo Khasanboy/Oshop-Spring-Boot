@@ -1,16 +1,13 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Product } from '@shopping/models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
   private url = 'api/products/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllProducts() {
     return this.http.get(this.url);

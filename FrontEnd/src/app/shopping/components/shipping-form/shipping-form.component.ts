@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { OrderService } from '@shopping/services/order.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@membership/services/auth.service';
-import { ShoppingCart } from '@shopping/models/shopping-cart';
-import { Shipping } from '@shopping/models/shipping';
 import { Order } from '@shopping/models/order';
+import { Shipping } from '@shopping/models/shipping';
+import { ShoppingCart } from '@shopping/models/shopping-cart';
+import { OrderService } from '@shopping/services/order.service';
 
 @Component({
   selector: 'app-shipping-form',

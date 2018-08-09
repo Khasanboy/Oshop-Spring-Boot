@@ -12,12 +12,14 @@
       <h5>Order items:</h5>
     </div>
     <div class="col-auto">
-      <h6 *ngFor="let item of order.items"><small>{{item.quantity}} x {{item.product.title}} {{item.product.price * item.quantity | currency: 'USD': 'symbol'}}</small></h6>
+      <h6 *ngFor="let item of order.items">
+        <small>{{item.quantity}} x {{item.product.title}} {{item.product.price * item.quantity | currency: 'USD': 'symbol'}}</small>
+      </h6>
     </div>
   </div>
   <div>
     <h5>Shipping info:</h5>
-    <h6>Name: 
+    <h6>Name:
       <small>{{order.shipping.name}}</small>
     </h6>
     <h6>Address:
