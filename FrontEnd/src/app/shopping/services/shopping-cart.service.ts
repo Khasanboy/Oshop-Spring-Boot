@@ -19,7 +19,6 @@ export class ShoppingCartService {
 
   set currentCart(cart) {
     this._currentCart = new ShoppingCart(cart.id, cart.items);
-    console.log(this._currentCart);
   }
 
   cartExists() {

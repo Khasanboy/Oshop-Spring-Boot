@@ -26,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of shoppingCartService.currentCart.items">
+      <tr *ngFor="let item of shoppingCartService.currentCart.items | filerByAlphabeticOrder">
         <td>
           <div [style.backgroundImage]="'url(' + item.product.imgUrl + ')'"
             class="thumbnail"></div>
