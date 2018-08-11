@@ -1,22 +1,23 @@
 import { AdminOrdersComponent } from '@admin/components/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from '@admin/components/admin-products/admin-products.component';
-import { ProductFormComponent } from '@admin/components/product-form/product-form.component';
 import { AdminAuthGuardService } from '@admin/services/admin-auth-guard.service';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
-import { DataTableModule } from '../../../node_modules/angular5-data-table';
-import { NewProductFormComponent } from './components/new-product-form/new-product-form.component';
+import { DataTableModule } from 'angular5-data-table';
+import { ProductFormComponent } from '@admin/components/product-form/product-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     SharedModule,
-    DataTableModule.forRoot()
+    DataTableModule.forRoot(),
+    ReactiveFormsModule
   ],
   declarations: [
     AdminProductsComponent,
     AdminOrdersComponent,
     ProductFormComponent,
-    NewProductFormComponent,
+    ProductFormComponent,
   ],
   providers: [
     AdminAuthGuardService,

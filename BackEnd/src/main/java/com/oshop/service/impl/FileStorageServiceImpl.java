@@ -42,10 +42,6 @@ public class FileStorageServiceImpl implements FileStorageService {
 		String type = StringUtils.cleanPath(file.getOriginalFilename().split("\\.")[1]);
 		String fileName = name+new Date().getTime()+"."+type;
 		
-		System.out.println(name);
-		System.out.println(type);
-		System.out.println(fileName);
-		
 		try {
 			if(fileName.contains("..")) {
 				throw new FileStorageException("Sorry! Filename conatins invalid path sequence "+fileName);
@@ -62,6 +58,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 		
 	}
 	
+	
 	public Resource loadFileAsResource(String fileName) {
 		try {
 			Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
@@ -77,6 +74,15 @@ public class FileStorageServiceImpl implements FileStorageService {
 		}
 	}
 	
-	
+	public void deleteFile(String fileName) {
+		try {
+			Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+			Files.deleteIfExists(filePath);
+		}catch(MalformedURLException ex) {
+			throw new MyFileNotFoundException("File not found "+ fileName, ex);
+		} catch (IOException e) {
+			throw new MyFileNotFoundException("Couldn't delete file "+ fileName, e);
+		}
+	}
 
 }

@@ -9,5 +9,6 @@ public interface FileStorageService {
 	
 	public Resource loadFileAsResource(String fileName);
 	
+	public void deleteFile(String fileName);
 
 }

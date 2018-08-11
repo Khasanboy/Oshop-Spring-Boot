@@ -13,7 +13,7 @@ import { CategoryService } from '@shopping/services/category.service';
 import { OrderService } from '@shopping/services/order.service';
 import { ProductService } from '@shopping/services/product.service';
 import { ShoppingCartService } from '@shopping/services/shopping-cart.service';
-import { FilerByAlphabeticOrderPipe } from './pipes/filer-by-alphabetic-order.pipe';
+import { FilerByAlphabeticOrderPipe } from '@shopping/pipes/filer-by-alphabetic-order.pipe';
 
 @NgModule({
   imports: [SharedModule],

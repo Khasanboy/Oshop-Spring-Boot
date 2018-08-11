@@ -1,16 +1,14 @@
 <div class="row">
   <div class="col-md-6">
-    <form #f="ngForm"
-      (ngSubmit)="addProduct(f.value)">
+    <form [formGroup]="form"
+      (ngSubmit)="addProduct()">
       <div class="form-group">
         <label for="title">Title</label>
         <input id="title"
+          formControlName="title"
           type="text"
           class="form-control"
-          #title="ngModel"
-          [(ngModel)]="product.title"
-          name="title"
-          required>
+          name="title">
       </div>
       <div *ngIf="title.touched && title.invalid">
         <h6 class="error-text"
@@ -23,12 +21,10 @@
             <span class="input-group-text">$</span>
           </div>
           <input id="price"
+            formControlName="price"
             type="number"
             class="form-control"
-            #price="ngModel"
-            [(ngModel)]="product.price"
             name="price"
-            required
             [min]="0">
         </div>
       </div>
@@ -36,18 +32,16 @@
         <h6 class="error-text"
           *ngIf="price.errors.required">Price is required</h6>
         <h6 class="error-text"
-          *ngIf="price.errors.min">Price should be 0 or higher</h6>
+          *ngIf="price.errors.priceIsNegative">Price should be 0 or higher</h6>
       </div>
       <div class="form-group">
         <label for="category">Category</label>
         <select id="category"
+          formControlName="category"
           class="form-control"
-          #category="ngModel"
-          [(ngModel)]="product.category"
-          name="category"
-          required>
+          name="category">
           <option value=""></option>
-          <option *ngFor="let category of categories"
+          <option *ngFor="let category of categories$ | async"
             [value]="category.id">{{category.name}}</option>
         </select>
       </div>
@@ -55,39 +49,41 @@
         <h6 class="error-text"
           *ngIf="category.errors.required">Category is required</h6>
       </div>
-      
-      <!--
-        <div class="form-group">
-        <label for="imageUrl">Image URL</label>
-        <input id="imageUrl"
-          type="text"
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input id="image"
+          formControlName="image"
+          type="file"
           class="form-control"
-          #imageUrl="ngModel"
-          [(ngModel)]="product.imageUrl"
-          name="imageUrl"
-          required
-          url>
+          (change)="onFileSelected($event)"
+          name="image">
       </div>
-       <div *ngIf="imageUrl.touched && imageUrl.invalid">
+      <div *ngIf="image.touched && image.invalid">
         <h6 class="error-text"
-          *ngIf="imageUrl.errors.required">Image URL is required</h6>
-        <h6 class="error-text"
-          *ngIf="imageUrl.errors.url">Please enter a valid URL</h6>
+          *ngIf="image.errors.required">Image is required</h6>
       </div>
-
-      -->
-     
+      <br>
       <button class="btn btn-primary"
         type="submit"
-        [disabled]="f.invalid">Save</button>
-      <button class="btn btn-danger"
+        [disabled]="form.invalid || form.prestine">Save</button>
+        <button *ngIf="id" class="btn btn-danger"
         type="button"
         (click)="deleteProduct()"
-        [disabled]="f.invalid">Delete</button>
+        [disabled]="form.invalid || form.prestine">Delete</button>
     </form>
   </div>
   <div class="col-md-6">
-    <app-product-card [product]="product"
-      [show-actions]="false"></app-product-card>
+    <div class="card">
+      <img class="card-img-top"
+        id="selectedImage"
+        width="300px"
+        height="300px"
+        [src]="imageUrl"
+        alt="{{title.value}}">
+      <div class="card-body">
+        <h5 class="card-title">{{title.value}}</h5>
+        <p class="card-text">{{price.value | currency:'USD':'symbol'}}</p>
+      </div>
+    </div>
+
   </div>
-</div>

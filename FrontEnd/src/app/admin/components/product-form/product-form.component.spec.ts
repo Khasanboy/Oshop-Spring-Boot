@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductFormComponent } from './product-form.component';
+import { ProductFormComponent } from '@admin/components/product-form/product-form.component';
 
-describe('ProductFormComponent', () => {
+describe('NewProductFormComponent', () => {
   let component: ProductFormComponent;
   let fixture: ComponentFixture<ProductFormComponent>;
 
