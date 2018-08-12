@@ -13,7 +13,10 @@
 
 <data-table [items]="items"
     [itemCount]="itemCount"
-    (reload)="reloadItems($event)">
+    (reload)="reloadItems($event)"
+    [pagination]="true"
+    [pageLimits]="[10, 20, 40, 60]"
+    >
 
     <data-table-column [property]="'title'"
         [header]="'Title'"
@@ -39,7 +42,6 @@
             <a [routerLink]="['/admin/products/', item.id]">Edit</a>
         </ng-template>
     </data-table-column>
-
 </data-table>
 <!--
 <table class="table">

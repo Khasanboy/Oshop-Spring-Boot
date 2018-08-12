@@ -28,7 +28,8 @@ export class AdminProductsComponent implements OnInit {
 
   private initializeTable(products: Product[]) {
     this.tableResource = new DataTableResource(products);
-    this.tableResource.query({ offset: 0 }).then(items => {
+
+    this.tableResource.query({ offset: 0, limit: 10 }).then(items => {
       this.items = items;
     });
 
