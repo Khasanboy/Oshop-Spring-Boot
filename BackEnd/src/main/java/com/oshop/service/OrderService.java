@@ -15,8 +15,10 @@ public interface OrderService {
 	
 	public Order addOrder(Order order);
 	
+	@SuppressWarnings("unused")
 	public void deleteOrder(Long id);
 	
+	@SuppressWarnings("unused")
 	public void updateOrder(Order order);
 	
 

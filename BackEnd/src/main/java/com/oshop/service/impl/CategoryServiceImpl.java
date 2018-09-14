@@ -17,20 +17,23 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Override
-	public List<Category> getAllCategiries() {
+	public List<Category> getAllCategories() {
 		return this.categoryRepository.findAll();
 	}
-
+	
+	@SuppressWarnings("unused")
 	@Override
 	public Optional<Category> getCategoryById(String id) {
 		return this.categoryRepository.findById(id);
 	}
-
+	
+	@SuppressWarnings("unused")
 	@Override
 	public void addCategory(Category category) {
 		this.categoryRepository.save(category);
 	}
-
+	
+	@SuppressWarnings("unused")
 	@Override
 	public void deleteCategory(String id) {
 		this.categoryRepository.deleteById(id);

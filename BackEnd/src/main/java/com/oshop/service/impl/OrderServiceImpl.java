@@ -34,12 +34,14 @@ public class OrderServiceImpl implements OrderService {
 	public Order addOrder(Order order) {
 		return this.orderRepository.save(order);
 	}
-
+	
+	@SuppressWarnings("unused")
 	@Override
 	public void deleteOrder(Long id) {
 		this.orderRepository.deleteById(id);
 	}
-
+	
+	@SuppressWarnings("unused")
 	@Override
 	public void updateOrder(Order order) {
 		this.orderRepository.save(order);

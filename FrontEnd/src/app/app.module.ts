@@ -12,11 +12,12 @@ import { ShoppingModule } from '@shopping/shopping.module';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'oshop-front-end' }),
     AppRoutingModule,
     HttpClientModule,
     NgbModule.forRoot(),
@@ -28,9 +29,7 @@ import { AppComponent } from './app.component';
     MembershipModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('accessToken');
-        },
+        tokenGetter,
         whitelistedDomains: [],
         blacklistedRoutes: []
       }
@@ -46,3 +45,11 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
+export function tokenGetter() {
+  if (isPlatformBrowser) {
+    return localStorage.getItem('accessToken');
+  }
+
+  return null;
+}

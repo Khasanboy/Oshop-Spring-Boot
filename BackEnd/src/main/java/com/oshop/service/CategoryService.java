@@ -7,12 +7,15 @@ import com.oshop.model.Category;
 
 public interface CategoryService {
 	
-	public List<Category> getAllCategiries();
+	public List<Category> getAllCategories();
 	
+	@SuppressWarnings("unused")
 	public Optional<Category> getCategoryById(String id);
 	
+	@SuppressWarnings("unused")
 	public void addCategory(Category category);
 	
+	@SuppressWarnings("unused")
 	public void deleteCategory(String id);
 
 }

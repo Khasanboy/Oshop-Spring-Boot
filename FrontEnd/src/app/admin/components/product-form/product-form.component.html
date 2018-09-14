@@ -65,11 +65,11 @@
       <br>
       <button class="btn btn-primary"
         type="submit"
-        [disabled]="form.invalid || form.prestine">Save</button>
+        [disabled]="form.invalid || form.pristine">Save</button>
         <button *ngIf="id" class="btn btn-danger"
         type="button"
         (click)="deleteProduct()"
-        [disabled]="form.invalid || form.prestine">Delete</button>
+        [disabled]="form.invalid || form.pristine">Delete</button>
     </form>
   </div>
   <div class="col-md-6">

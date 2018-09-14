@@ -15,6 +15,7 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService {
 	
 	@Autowired ShoppingCartItemRepository shoppingCartItemRepository;
 	
+	@SuppressWarnings("unused")
 	@Override
 	public List<ShoppingCartItem> getAll() {
 		return this.shoppingCartItemRepository.findAll();

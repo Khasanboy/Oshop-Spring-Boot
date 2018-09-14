@@ -7,6 +7,7 @@ import com.oshop.model.ShoppingCartItem;
 
 public interface ShoppingCartItemService {
 	
+	@SuppressWarnings("unused")
 	public List<ShoppingCartItem> getAll();
 	
 	public Optional<ShoppingCartItem> getById(Long id);
